@@ -19,27 +19,6 @@ let buttonStyle = new Style({font: '20px', color: 'black', left: 4, right: 4, to
 let buttonSkin = new Skin ({fill: 'white', borders: {left: 1, right: 1, top: 1, bottom: 1}, 
     stroke: "black"});
 
-var StringTemplate = Text.template($ => ({
-	left: 10, right: 10, top: 10, bottom: 0,
-	style: $.style,
-	string: $.string
-}));
-
-let BackButton = Container.template($ =>({
-  exclusiveTouch: true, active: true, left: 10, bottom: 0, top: 0, right: 0,
-  contents:[
-    Label($, {
-      hidden: false, skin: $.skin, string: "Back", style: buttonStyle
-    })
-  ],
-  behavior: Behavior({
-    onTouchEnded(container, id, x, y, ticks) {
-      application.remove(currentScreen);
-      currentScreen = new PlantProfileScreen;
-      application.add(currentScreen);
-    }
-  })
-}));
 
 let WaterButton = Container.template($ =>({
   exclusiveTouch: true, active: true, left: 0, bottom: 0, top: 0, right: 0,
@@ -140,7 +119,7 @@ var PlantProfileScreen = Column.template($ => ({
           name: 'middle',
           height: 170, top: 10,
           contents: [
-            new Picture({height: 150, width: 100, url: assets.images.rosemary}),
+            new Picture({height: 150, width: 100, url: assets.images.rosemaryPot}),
             new Picture({top: 130, height: 40, width: 40, url: assets.images.magGlass, active: true, 
               behavior: Behavior({
                 onTouchEnded: function(content, id, x, y, ticks) {

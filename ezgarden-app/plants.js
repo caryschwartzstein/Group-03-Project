@@ -37,10 +37,10 @@ export function Garden(plants) {
 }
 
 export var plantTypes = [];
-let sunflower = new PlantType("Sunflower", assets.images.sunflower, 24);
-sunflower.tips.push(tipNeedsMoreWater());
-sunflower.tips.push(tipNeedsSun(6, 10));
-plantTypes.push(sunflower);
+let rosemary = new PlantType("Rosemary", assets.images.rosemaryPot, 24);
+rosemary.tips.push(tipNeedsMoreWater());
+rosemary.tips.push(tipNeedsSun(6, 10));
+plantTypes.push(rosemary);
 
 let basil = new PlantType("Basil", assets.images.basil, 22);
 basil.tips.push(tipNeedsSun(7, 8));
@@ -67,6 +67,6 @@ for (let i = 0; i < plantTypes.length; i++) {
 }
 
 export var gardens = [];
-gardens.push(new Garden([new Plant(sunflower)]));
+gardens.push(new Garden([new Plant(rosemary)]));
 gardens.push(new Garden([new Plant(strawberry), new Plant(strawberry)]));
 gardens.push(new Garden());

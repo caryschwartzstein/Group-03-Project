@@ -100,7 +100,7 @@ var Notification = Container.template($ => ({
             new Picture({
                 top: 0, left: 0,  right: 0, bottom: 0,
                 height: 30,
-                url: assets.images.sunflower
+                url: assets.images.rosemaryPot
             }),
             new WaterButton(),
         ]
