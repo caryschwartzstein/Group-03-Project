@@ -2,6 +2,7 @@
     Button,
     ButtonBehavior
 } from '../libraries/buttons';
+import * as assets from '../assets';
 
 // STYLES
 let graySkin = new Skin({ fill: '#C4C4C4' });       // Gray notification from Figma
@@ -22,19 +23,19 @@ let titleText = new Style({ font: "28px segoe script", color: "white" });
 let sunflower = new Picture({
     top: 0, left: 0, right: 0,
     width: 50,
-    url: "assets/sunflower.png"
+    url: assets.images.sunflower
 });
 
 let rosemary = new Picture({
     top: 0, left: 0, right: 0,
     height: 50,
-    url: "assets/rosemary.png"
+    url: assets.images.rosemary
 });
 
 let strawberry = new Picture({
     top: 0, left: 0, right: 0,
     width: 50,
-    url: "assets/strawberryw.png"
+    url: assets.images.strawberry
 });
 
 // TEMPLATES
@@ -48,32 +49,17 @@ var StringTemplate = Text.template($ => ({
 let waterButton = Button.template($ => ({
     top: 10, left: 0, height: 40, width: 40, right: 20,
     contents: [
-        new Label({
-            // skin: topSkin,
-            // top: 10, left: 0, height: 40, width: 40, right: 20,
-            style: whiteText,
-            string: "water"
-        }),
+        new Label({ style: whiteText, string: "water" }),
     ],
     Behavior: class extends ButtonBehavior {
         onTap(button){
-         //if (wateredPopup.active) {
             application.add(wateredPopup);
-         //}
-         //if (notWateredPopup.active) { application.remove(notWateredPopup) }
-         //wateredPopup.active = false;
-         //notWateredPopup.active = false;
-     }
+        }
     }
 }));
 
 let wateredPopup = new Container({
     left: 40, right: 40,
-    /*skin = new Skin({
-                fill: "#ff5656", // red
-                borders: {left: 1, right: 1, top: 1, bottom: 1},
-                stroke: "#ff5656"
-    }), */
     contents: [
      new Column({
          left: 0, right: 0, top: 0, height: 60,
@@ -109,7 +95,7 @@ var notificationHeader = Container.template($ => ({
         top: 0, left: 10, bottom: 0, right: 0,
         contents: [
             new ImgButton({
-                url: "assets/home.png",
+                url: assets.images.home,
                 nextScreen: HomeScreen
             }),
             new Label({ top: 0, left: 0, bottom: 0, right: 0, style: titleText, string: "Notifications" }),
@@ -130,15 +116,9 @@ let notification = Container.template($ => ({
             new Picture({
                 top: 0, left: 0,  right: 0, bottom: 0,
                 height: 30,
-                url: "assets/sunflower.png"
+                url: assets.images.sunflower
             }),
             new waterButton(),
-            /* new Label({
-                skin: topSkin,
-                top: 10, left: 0, height: 40, width: 40, right: 20,
-                style: grayText,
-                string: "water"
-            }), */
         ]
     }),
   ]
@@ -173,7 +153,8 @@ var NavButton = Container.template($ => ({
    contents: [
         Label($, { top: 0, bottom: 0, left: 0, right: 0,
             style: whiteText,
-            string: $.string})
+            string: $.string
+        })
    ]
 }));
 
@@ -181,16 +162,8 @@ var ImgButton = Container.template($ => ({
     active: true, top: 0, bottom: 0, width: 30,
     behavior: Behavior({
         onCreate: function(content){
-            this.upSkin = new Skin({
-                //fill: "transparent",
-                // borders: {left: 1, right: 1, top: 1, bottom: 1},
-                // stroke: "white"
-            });
-            this.downSkin = new Skin({
-                //fill: "transparent",
-                // borders: {left: 1, right: 1, top: 1, bottom: 1},
-                // stroke: "white"
-            });
+            this.upSkin = new Skin({});
+            this.downSkin = new Skin({});
             content.skin = this.upSkin;
         },
         onTouchBegan: function(content){
@@ -204,10 +177,7 @@ var ImgButton = Container.template($ => ({
         },
     }),
    contents: [
-        new Picture({
-            top: 10,
-            height: 30,
-            url: $.url })
+        new Picture({ top: 10,  height: 30, url: $.url  })
    ]
 }));
 
@@ -217,13 +187,9 @@ var plantButton = Container.template($ => ({
         onCreate: function(content){
             this.upSkin = new Skin({
                 fill: "transparent",
-                // borders: {left: 1, right: 1, top: 1, bottom: 1},
-                // stroke: "white"
             });
             this.downSkin = new Skin({
                 fill: "transparent",
-                // borders: {left: 1, right: 1, top: 1, bottom: 1},
-                // stroke: "white"
             });
             content.skin = this.upSkin;
         },
@@ -240,7 +206,8 @@ var plantButton = Container.template($ => ({
    contents: [
         new Picture({
             top: $.top, left: $.left, height: $.height,
-            url: $.url })
+            url: $.url 
+        })
    ]
 }));
 
@@ -249,12 +216,8 @@ export var NotificationScreen = Column.template($ => ({
     left: 0, right: 0, top: 0, bottom: 0, skin: whiteSkin,
     contents: [
         new notificationHeader(),
-        new Column({
-            top: 0, left: 0, bottom: 0, right: 0,
-            contents: [
-                new notification(),
-                // new notification()
-            ]
+        new Column({ top: 0, left: 0, bottom: 0, right: 0,
+            contents: [ new notification() ]
         }),
     ]
 }));

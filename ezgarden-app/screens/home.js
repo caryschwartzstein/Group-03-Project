@@ -2,7 +2,10 @@
     Button,
     ButtonBehavior
 } from '../libraries/buttons';
+import * as assets from '../assets';
 import * as notifications from 'notifications';
+
+let GARDEN_HEIGHT = 150;
 
 // STYLES
 let graySkin = new Skin({ fill: '#C4C4C4' });       // Gray notification from Figma
@@ -23,19 +26,19 @@ let titleText = new Style({ font: "28px segoe script", color: "white" });
 let sunflower = new Picture({
     top: 0, left: 0, right: 0,
     width: 50,
-    url: "assets/sunflower.png"
+    url: assets.images.sunflower
 });
 
 let rosemary = new Picture({
     top: 0, left: 0, right: 0,
     height: 50,
-    url: "assets/rosemary.png"
+    url: assets.images.rosemary
 });
 
 let strawberry = new Picture({
     top: 0, left: 0, right: 0,
     width: 50,
-    url: "assets/strawberryw.png"
+    url: assets.images.strawberry
 });
 
 // TEMPLATES
@@ -50,31 +53,19 @@ let waterButton = Button.template($ => ({
     top: 10, left: 0, height: 40, width: 40, right: 20,
     contents: [
         new Label({
-            // skin: topSkin,
-            // top: 10, left: 0, height: 40, width: 40, right: 20,
             style: whiteText,
             string: "water"
         }),
     ],
     Behavior: class extends ButtonBehavior {
         onTap(button){
-         //if (wateredPopup.active) {
             application.add(wateredPopup);
-         //}
-         //if (notWateredPopup.active) { application.remove(notWateredPopup) }
-         //wateredPopup.active = false;
-         //notWateredPopup.active = false;
-     }
+        }
     }
 }));
 
 let wateredPopup = new Container({
     left: 40, right: 40,
-    /*skin = new Skin({
-                fill: "#ff5656", // red
-                borders: {left: 1, right: 1, top: 1, bottom: 1},
-                stroke: "#ff5656"
-    }), */
     contents: [
      new Column({
          left: 0, right: 0, top: 0, height: 60,
@@ -111,7 +102,6 @@ export var header = Container.template($ => ({
         contents: [
             new Label({ top: 0, left: 0, bottom: 0, right: 0, style: titleText, string: "my garden" }),
             new NavButton({ style: redText, string: "1", nextScreen: notifications.NotificationScreen }),
-            // new Label({ right: 10, style: redText, string: "1" }),
         ]
     }),
   ]
@@ -119,37 +109,26 @@ export var header = Container.template($ => ({
 
 let garden1 = Column.template($ => ({
   name: 'garden1',
-  left: 0, right: 0, top: 10, height: 130,
+  left: 0, right: 0, top: 10, height: GARDEN_HEIGHT,
   skin: whiteSkin,
   contents: [
      new Label({ top: 0, left: 20, bottom: 0, style: grayText, string: "Garden 1" }),
      new Line({
         top: 0, left: 0, bottom: 0, right: 0,
         contents: [
-            // sunflower,
-            /* new Column({
-                contents: [
-                    new Picture({
-                    top: 0, left: 0, right: 0, bottom: 0,
-                    height: 30,
-                    url: "assets/sunflower.png"
-                }),
-                new Label({ style: blackText2, string: "Sunflower" }),
-                ]
-            }), */
             new plantButton({
-                top: 10, height: 80,
-                url: "assets/sunflower.png",
+                height: 80,
+                url: assets.images.sunflower,
                 nextScreen: notifications.NotificationScreen // change to Plant Profile!
             }),
             new plantButton({
-                top: 10, height: 90,
-                url: "assets/rosemary.png",
+                height: 50,
+                url: assets.images.basil,
                 nextScreen: notifications.NotificationScreen // change to Plant Profile!
             }),
             new plantButton({
-                top: 30, height: 50,
-                url: "assets/add.png",
+                height: 50,
+                url: assets.images.add,
                 nextScreen: notifications.NotificationScreen // change to Plant Seed!
             }),
         ]
@@ -158,8 +137,8 @@ let garden1 = Column.template($ => ({
 }));
 
 let garden2 = Column.template($ => ({
-  name: 'garden1',
-  left: 0, right: 0, top: 0, height: 130,
+  name: 'garden2',
+  left: 0, right: 0, top: 0, height: GARDEN_HEIGHT,
   skin: whiteSkin,
   contents: [
      new Label({ top: 0, left: 20, bottom: 0, style: grayText, string: "Garden 2" }),
@@ -167,18 +146,18 @@ let garden2 = Column.template($ => ({
         top: 0, left: 0, bottom: 0, right: 0,
         contents: [
             new plantButton({
-                top: 10, height: 70,
-                url: "assets/strawberry.png",
+                height: 70,
+                url: assets.images.strawberry,
                 nextScreen: notifications.NotificationScreen // change to Plant Profile!
             }),
             new plantButton({
-                top: 10, height: 70,
-                url: "assets/strawberry.png",
+                height: 70,
+                url: assets.images.strawberry,
                 nextScreen: notifications.NotificationScreen // change to Plant Profile!
             }),
             new plantButton({
-                top: 30, height: 50,
-                url: "assets/add.png",
+                height: 50,
+                url: assets.images.add,
                 nextScreen: notifications.NotificationScreen // change to Plant Seed!
             }),
         ]
@@ -187,8 +166,8 @@ let garden2 = Column.template($ => ({
 }));
 
 let garden3 = Column.template($ => ({
-  name: 'garden1',
-  left: 0, right: 0, top: 0, height: 130,
+  name: 'garden3',
+  left: 0, right: 0, top: 0, height: GARDEN_HEIGHT,
   skin: whiteSkin,
   contents: [
      new Label({ top: 10, left: 20, style: grayText, string: "Garden 3" }),
@@ -199,7 +178,7 @@ let garden3 = Column.template($ => ({
                 top: 10,
                 left: -15,
                 height: 50,
-                url: "assets/add.png",
+                url: assets.images.add,
                 nextScreen: notifications.NotificationScreen // change to Plant Seed!
             }),
         ]
@@ -236,7 +215,8 @@ var NavButton = Container.template($ => ({
    contents: [
         Label($, { top: 0, bottom: 0, left: 0, right: 0,
             style: whiteText,
-            string: $.string})
+            string: $.string
+        })
    ]
 }));
 
@@ -244,16 +224,8 @@ var ImgButton = Container.template($ => ({
     active: true, top: 0, bottom: 0, width: 30,
     behavior: Behavior({
         onCreate: function(content){
-            this.upSkin = new Skin({
-                //fill: "transparent",
-                // borders: {left: 1, right: 1, top: 1, bottom: 1},
-                // stroke: "white"
-            });
-            this.downSkin = new Skin({
-                //fill: "transparent",
-                // borders: {left: 1, right: 1, top: 1, bottom: 1},
-                // stroke: "white"
-            });
+            this.upSkin = new Skin({});
+            this.downSkin = new Skin({});
             content.skin = this.upSkin;
         },
         onTouchBegan: function(content){
@@ -267,10 +239,7 @@ var ImgButton = Container.template($ => ({
         },
     }),
    contents: [
-        new Picture({
-            top: 10,
-            height: 30,
-            url: $.url })
+        new Picture({ top: 10, height: 30, url: $.url })
    ]
 }));
 
@@ -280,13 +249,9 @@ var plantButton = Container.template($ => ({
         onCreate: function(content){
             this.upSkin = new Skin({
                 fill: "transparent",
-                // borders: {left: 1, right: 1, top: 1, bottom: 1},
-                // stroke: "white"
             });
             this.downSkin = new Skin({
                 fill: "transparent",
-                // borders: {left: 1, right: 1, top: 1, bottom: 1},
-                // stroke: "white"
             });
             content.skin = this.upSkin;
         },
@@ -295,15 +260,16 @@ var plantButton = Container.template($ => ({
         },
         onTouchEnded: function(content){
             content.skin = this.upSkin;
-            application.remove(currentScreen);  // Remove the old screen from the application
-            currentScreen = new $.nextScreen;  // Make the new screen
-            application.add(currentScreen);  // Add the new screen to the application
+            //application.remove(currentScreen);  // Remove the old screen from the application
+            //currentScreen = new $.nextScreen;  // Make the new screen
+            //application.add(currentScreen);  // Add the new screen to the application
         },
     }),
    contents: [
         new Picture({
             top: $.top, left: $.left, height: $.height,
-            url: $.url })
+            url: $.url
+        })
    ]
 }));
 
