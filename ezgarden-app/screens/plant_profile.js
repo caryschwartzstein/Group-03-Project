@@ -1,15 +1,7 @@
+import { Button, ButtonBehavior } from '../libraries/buttons';
+import * as screenUtils from '../screen_utils';
 import * as assets from "../assets";
-
-export var picture = new Picture({ left: 0, url: assets.images.cactus })
-export var screen = new Column({ left: 0, top: 0, right: 0, bottom: 0,
-	skin: assets.sampleSkin,
-	contents: []
-});
-
-import {
-	Button,
-	ButtonBehavior
-} from 'buttons';
+import * as notifications from 'notifications';
 
 let blueButtonSkin = new Skin({ fill: '#56CCF2' }); 
 let graySkin = new Skin({ fill: '#C4C4C4' });		// Gray notification from Figma
@@ -27,15 +19,13 @@ let buttonStyle = new Style({font: '20px', color: 'black', left: 4, right: 4, to
 let buttonSkin = new Skin ({fill: 'white', borders: {left: 1, right: 1, top: 1, bottom: 1}, 
     stroke: "black"});
 
-
 var StringTemplate = Text.template($ => ({
 	left: 10, right: 10, top: 10, bottom: 0,
 	style: $.style,
 	string: $.string
 }));
 
-
-let backButton = Container.template($ =>({
+let BackButton = Container.template($ =>({
   exclusiveTouch: true, active: true, left: 10, bottom: 0, top: 0, right: 0,
   contents:[
     Label($, {
@@ -51,7 +41,7 @@ let backButton = Container.template($ =>({
   })
 }));
 
-let waterButton = Container.template($ =>({
+let WaterButton = Container.template($ =>({
   exclusiveTouch: true, active: true, left: 0, bottom: 0, top: 0, right: 0,
   contents:[
     Label($, {
@@ -60,11 +50,12 @@ let waterButton = Container.template($ =>({
   ],
   behavior: Behavior({
     onTouchEnded(container, id, x, y, ticks) {
+    	screenUtils.showPopup(new notifications.WateredPopup({ closeFunc: screenUtils.closePopups }));
     }
   })
 }));
 
-let blueButton = Container.template($ =>({
+let BlueButton = Container.template($ =>({
   exclusiveTouch: true, active: true, left: 0, bottom: 0, top: 0, right: 0,
   contents:[
     Label($, {
@@ -121,38 +112,25 @@ let PlantInformation = Column.template($ => ({
     ]
 }));
 
-var LiveScreen = Column.template($ => ({
-  top: 0, bottom: 0, left: 0, right: 0, 
-    skin: whiteSkin,
-    contents: [
-      new Line({ 
-          name: 'liveHeader',
-          height: 60,
-          contents: [
-             new backButton({skin: buttonSkin}),
-             new Label({ style: new Style({font: 'bold 25px', color: 'black'}), 
-               left: 30, height: 50, string: "Rosemary #1 Live"})
-      ] }),
-      new Line({ 
-         left: 20, right: 20, top: 10, height: 2, skin: new Skin({ fill: '#66cc66' }) 
-      }),
-      new Picture({ left: 0, top: 10, bottom: 0, right: 0, url: "assets/rosemary.jpg" })  
-    ]
+export var ImgButton = Container.template($ => ({
+    active: true, top: 0, bottom: 0, left: 3, right: 3, width: 30,
+    behavior: Behavior({
+        onTouchEnded: function(content){
+        	$.nextScreenFunc();
+        },
+    }),
+   contents: [ new Picture({ height: 30, url: $.url  }) ]
 }));
-
 
 var PlantProfileScreen = Column.template($ => ({
     top: 0, bottom: 0, left: 0, right: 0, 
     skin: whiteSkin,
     contents: [
        new Line({ 
-         left: 0, right: 0, top: 10, bottom: 0, height: 10,
+         left: 0, right: 0, top: 10, bottom: 0, height: 30, 
          contents:[
-            new Content({ left: 20, right: 10, top: 0, bottom: 0, 
-                          skin: new Skin({ fill: 'black' }) }),
-            new Label({ width: 130, left: 0, right: 0, top: 0, bottom: 0, style: titleText, string: "Rosemary #1"}),
-            new Content({ left: 10, right: 20, top: 0, bottom: 0, 
-                          skin: new Skin({ fill: 'red' }) }),
+            new ImgButton({ url: assets.images.home2, nextScreenFunc: screenUtils.showHome }),
+            new Label({ width: 200, left: 0, right: 0, top: 0, bottom: 0, style: titleText, string: "Rosemary #1" }),
          ]
       }),
       new Line({ 
@@ -162,13 +140,11 @@ var PlantProfileScreen = Column.template($ => ({
           name: 'middle',
           height: 170, top: 10,
           contents: [
-            new Picture({height: 150, width: 100, url: "assets/rosemary.png"}),
-            new Picture({top: 130, height: 40, width: 40, url: "assets/mag_glass.png", active: true, 
+            new Picture({height: 150, width: 100, url: assets.images.rosemary}),
+            new Picture({top: 130, height: 40, width: 40, url: assets.images.magGlass, active: true, 
               behavior: Behavior({
                 onTouchEnded: function(content, id, x, y, ticks) {
-                  //application.remove(currentScreen);
-                  //currentScreen = new LiveScreen;
-                  //application.add(currentScreen);
+                	screenUtils.showPlantLive();
                 }
               })
             }),
@@ -179,9 +155,9 @@ var PlantProfileScreen = Column.template($ => ({
               bottom: 10,
               top: 30,
               contents: [
-                new waterButton({skin: blueButtonSkin}),
-                new blueButton({skin: blueButtonSkin, string: "sunlight" }),
-                new blueButton({skin: blueButtonSkin, string: "nutrients"})
+                new WaterButton({skin: blueButtonSkin}),
+                new BlueButton({skin: blueButtonSkin, string: "sunlight" }),
+                new BlueButton({skin: blueButtonSkin, string: "nutrients"})
               ]
             })
           ]
@@ -190,4 +166,11 @@ var PlantProfileScreen = Column.template($ => ({
     ]
 }));
 
-export var currentScreen = new PlantProfileScreen();
+var screen = null;
+export function getScreen() {
+	if (screen) {
+		return screen;
+	}
+	screen = new PlantProfileScreen();
+	return screen;
+}

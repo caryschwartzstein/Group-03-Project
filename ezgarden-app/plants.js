@@ -25,29 +25,48 @@ export function PlantType(name, image, wateringTime) {
 	this.tips = [];
 }
 
+export function Plant(plantType) {
+	this.plantType = plantType;
+}
+
+export function Garden(plants) {
+	if (!plants) {
+		plants = [];
+	}
+	this.plants = plants
+}
+
 export var plantTypes = [];
-let plant = new PlantType("Sunflower", assets.images.sunflower, 24);
-plant.tips.push(tipNeedsMoreWater());
-plant.tips.push(tipNeedsSun(6, 10));
-plantTypes.push(plant);
+let sunflower = new PlantType("Sunflower", assets.images.sunflower, 24);
+sunflower.tips.push(tipNeedsMoreWater());
+sunflower.tips.push(tipNeedsSun(6, 10));
+plantTypes.push(sunflower);
 
-plant = new PlantType("Basil", assets.images.basil, 22);
-plant.tips.push(tipNeedsSun(7, 8));
-plantTypes.push(plant);
+let basil = new PlantType("Basil", assets.images.basil, 22);
+basil.tips.push(tipNeedsSun(7, 8));
+plantTypes.push(basil);
 
-plant = new PlantType("Cactus", assets.images.cactus, 60);
-plantTypes.push(plant);
+let cactus = new PlantType("Cactus", assets.images.cactus, 60);
+plantTypes.push(cactus);
 
-plant = new PlantType("Rose", assets.images.rose, 24);
-plantTypes.push(plant);
+let dandelion = new PlantType("Dandelion", assets.images.dandelion, 60);
+plantTypes.push(dandelion);
 
-plant = new PlantType("Strawberry", assets.images.strawberry, 14);
-plantTypes.push(plant);
+let rose = new PlantType("Rose", assets.images.rose, 24);
+plantTypes.push(rose);
 
-plant = new PlantType("Watermelon", assets.images.watermelon, 10);
-plantTypes.push(plant);
+let strawberry = new PlantType("Strawberry", assets.images.strawberry, 14);
+plantTypes.push(strawberry);
+
+let watermelon = new PlantType("Watermelon", assets.images.watermelon, 10);
+plantTypes.push(watermelon);
 
 export var plantTypesMap = {}
 for (let i = 0; i < plantTypes.length; i++) {
 	plantTypesMap[plantTypes[i].name] = plantTypes[i];
 }
+
+export var gardens = [];
+gardens.push(new Garden([new Plant(sunflower)]));
+gardens.push(new Garden([new Plant(strawberry), new Plant(strawberry)]));
+gardens.push(new Garden());
