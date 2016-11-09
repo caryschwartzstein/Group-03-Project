@@ -14,3 +14,10 @@ while (info = iterator.getNext()) {
     	images[imageName] = fullPath;
     }
 }
+
+// Skins
+export var sampleSkin = new Skin({ fill: "#FF6868", stroke: "#000000",
+	borders: { left: 0, top: 0, right: 0, bottom: 1 }});
+
+// Styles
+export var sampleStyle = new Style({ font: "bold 18px Arial", color: "black", horizontal: "left" });

@@ -1,3 +1,3 @@
-import * as home from "screens/home_screen";
+import * as home from "screens/home";
 
 application.add(home.screen)
