@@ -1,7 +1,7 @@
  import {
     Button,
     ButtonBehavior
-} from 'buttons';
+} from '../libraries/buttons';
 
 // STYLES
 let graySkin = new Skin({ fill: '#C4C4C4' });       // Gray notification from Figma
