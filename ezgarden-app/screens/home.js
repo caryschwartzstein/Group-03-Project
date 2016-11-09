@@ -1,7 +1,8 @@
  import {
     Button,
     ButtonBehavior
-} from 'buttons';
+} from '../libraries/buttons';
+import * as notifications from 'notifications';
 
 // STYLES
 let graySkin = new Skin({ fill: '#C4C4C4' });       // Gray notification from Figma
@@ -109,7 +110,7 @@ export var header = Container.template($ => ({
         top: 0, left: 0, bottom: 0, right: 0,
         contents: [
             new Label({ top: 0, left: 0, bottom: 0, right: 0, style: titleText, string: "my garden" }),
-            new NavButton({ style: redText, string: "1", nextScreen: NotificationScreen }),
+            new NavButton({ style: redText, string: "1", nextScreen: notifications.NotificationScreen }),
             // new Label({ right: 10, style: redText, string: "1" }),
         ]
     }),
@@ -139,17 +140,17 @@ let garden1 = Column.template($ => ({
             new plantButton({
                 top: 10, height: 80,
                 url: "assets/sunflower.png",
-                nextScreen: NotificationScreen // change to Plant Profile!
+                nextScreen: notifications.NotificationScreen // change to Plant Profile!
             }),
             new plantButton({
                 top: 10, height: 90,
                 url: "assets/rosemary.png",
-                nextScreen: NotificationScreen // change to Plant Profile!
+                nextScreen: notifications.NotificationScreen // change to Plant Profile!
             }),
             new plantButton({
                 top: 30, height: 50,
                 url: "assets/add.png",
-                nextScreen: NotificationScreen // change to Plant Seed!
+                nextScreen: notifications.NotificationScreen // change to Plant Seed!
             }),
         ]
     }),
@@ -168,17 +169,17 @@ let garden2 = Column.template($ => ({
             new plantButton({
                 top: 10, height: 70,
                 url: "assets/strawberry.png",
-                nextScreen: NotificationScreen // change to Plant Profile!
+                nextScreen: notifications.NotificationScreen // change to Plant Profile!
             }),
             new plantButton({
                 top: 10, height: 70,
                 url: "assets/strawberry.png",
-                nextScreen: NotificationScreen // change to Plant Profile!
+                nextScreen: notifications.NotificationScreen // change to Plant Profile!
             }),
             new plantButton({
                 top: 30, height: 50,
                 url: "assets/add.png",
-                nextScreen: NotificationScreen // change to Plant Seed!
+                nextScreen: notifications.NotificationScreen // change to Plant Seed!
             }),
         ]
     }),
@@ -199,7 +200,7 @@ let garden3 = Column.template($ => ({
                 left: -15,
                 height: 50,
                 url: "assets/add.png",
-                nextScreen: NotificationScreen // change to Plant Seed!
+                nextScreen: notifications.NotificationScreen // change to Plant Seed!
             }),
         ]
     }),
@@ -323,5 +324,5 @@ var HomeScreen = Column.template($ => ({
     ]
 }));
 
-export var currentScreen = new HomeScreen();
+export var screen = new HomeScreen();
 // application.add(currentScreen);
