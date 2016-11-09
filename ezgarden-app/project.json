@@ -1,0 +1,17 @@
+{
+    "title":"ezgarden_app",
+    "description":"This template builds an app that traces \"Hello, World!\" and breaks into the debugger.",
+    "id":"ezgarden.app",
+    "tags":[
+        "emptySample"
+    ],
+    "Create":{
+        "main":"main"
+    },
+    "iap140":{
+        "main":"main"
+    },
+    "Element":{
+        "main":"main"
+    }
+}
