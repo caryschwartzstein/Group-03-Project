@@ -18,6 +18,15 @@ while (info = iterator.getNext()) {
 // Skins
 export var sampleSkin = new Skin({ fill: "#FF6868", stroke: "#000000",
 	borders: { left: 0, top: 0, right: 0, bottom: 1 }});
+export let whiteSkin = new Skin ({fill: 'white'});
+export let blueSkin = new Skin ({fill: '#3498db'});
+export let greenSkin = new Skin ({fill: '#66cc66'});
 
 // Styles
 export var sampleStyle = new Style({ font: "bold 18px Arial", color: "black", horizontal: "left" });
+
+//Texts
+export var greenText = new Style({ font: "20px", color: "#66cc66" });
+export var blackText3 = new Style({ font: "bold 18px arial", color: "black" });
+export var blackText = new Style({ font: "bold 32px segoe script", color: "black" });
+export var whiteText = new Style( { font: "20px", color: "white"});
