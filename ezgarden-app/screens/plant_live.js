@@ -3,10 +3,7 @@ import * as screenUtils from '../screen_utils';
 import * as assets from "../assets";
 import * as plantProfile from 'plant_profile';
 
-let graySkin = new Skin({ fill: '#C4C4C4' });
 let whiteSkin = new Skin({ fill: 'white' });
-let buttonSkin = new Skin ({fill: 'white', borders: {left: 1, right: 1, top: 1, bottom: 1}, 
-    stroke: "black"});
 
 var LiveScreen = Column.template($ => ({
   top: 0, bottom: 0, left: 0, right: 0, 

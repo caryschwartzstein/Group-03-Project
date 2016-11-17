@@ -1,8 +1,6 @@
-import Pins from "pins";
-
 export var remoteUrl = null;
-export var remotePins = null;
 var handlerMap = {};
+var threadCount = 1;
 
 export function discoverDevice(deviceId) {
 	application.shared = true;
@@ -62,30 +60,15 @@ export function onComplete(id, func) {
 	}
 }
 
-export function discoverPins(pinName) {
-	Pins.discover(
-	    connectionDesc => {
-	        if (connectionDesc.name == pinName) {
-	            trace("Connected to pins: " + pinName + "\n");
-	            remotePins = Pins.connect(connectionDesc);
-	            
-	            remotePins.repeat("/EatButton/read", 200, function(result) {
-	        	   if (result) {
-	        	      forceEat();
-	        	   }
-	        	});
-	            remotePins.repeat("/WeightSensor/read", 200, function(result) {
-	         	   if (result) {
-	         	      setCurrentWeight(result);
-	         	   }
-	         	});
-	        }
-	    }, 
-	    connectionDesc => {
-	        if (connectionDesc.name == pinName) {
-	            trace("Disconnected from remote pins\n");
-	            remotePins = null;
-	        }
-	    }
-	)
+export function repeatingThread(repeatDelay, func) {
+	let tid = "thread" + threadCount;
+	threadCount++;
+	onInvoke(tid, function(handler, args) {
+		func();
+	    handler.wait(2000);
+	});
+	onComplete(tid, function(handler, args) {
+		sendMessage(tid);
+	});
+	sendMessage(tid);
 }

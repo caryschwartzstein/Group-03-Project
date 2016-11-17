@@ -3,20 +3,11 @@ import * as assets from '../assets';
 import * as screenUtils from '../screen_utils';
 import * as home from 'home';
 
-// STYLES
-let graySkin = new Skin({ fill: '#C4C4C4' });       // Gray notification from Figma
 let whiteSkin = new Skin({ fill: 'white' });
-let appSkin = new Skin({ fill: '#F2F2F2' });        // Gray background color from Figma
-let topSkin = new Skin({ fill: '#6FCF97' });        // Green header color from Figma
 let popupSkin = new Skin({ fill: "white", stroke: "#757575", borders: { left: 1, top: 1, right: 1, bottom: 1 }});
 
-// let popupSkin = new Skin({ fill: "#ff5656", borders: {left: 1, right: 1, top: 1, bottom: 1}, stroke: "#ff5656")};
-let greenText = new Style({ font: "bold 28px segoe script", color: '#66cc66' });
-let blackText = new Style({ font: "bold 32px segoe script", color: "black" });
-let blackText2 = new Style({ font: "16px arial", color: "black" });
-let blackText3 = new Style({ font: "18px arial", color: "black" });
+let blackText = new Style({ font: "18px arial", color: "black" });
 let grayText = new Style({ font: "18px arial", color: "#757575" });
-let redText = new Style({ font: "bold 24px arial", color: "red" });
 let whiteText = new Style({ font: "22px arial", color: "white" });
 let greenPopupText = new Style({ font: "18px arial", color: "#6FCF97" });
 
@@ -82,7 +73,7 @@ var NotWateredPopup = Container.template($ => ({
          left: 0, right: 0, top: 0, bottom: 70,
          contents: [
              new StringTemplate({ string: 'Whoops!', style: greenPopupText}),
-             new StringTemplate({ string: 'Are you sure you want to water your plant? It needs to be watered in 3 hours.', style: blackText3 }),
+             new StringTemplate({ string: 'Are you sure you want to water your plant? It needs to be watered in 3 hours.', style: blackText }),
          ]
      }),
      new WaterButton()

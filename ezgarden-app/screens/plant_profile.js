@@ -4,14 +4,10 @@ import * as assets from "../assets";
 import * as notifications from 'notifications';
 
 let blueButtonSkin = new Skin({ fill: '#56CCF2' }); 
-let graySkin = new Skin({ fill: '#C4C4C4' });		// Gray notification from Figma
 let whiteSkin = new Skin({ fill: 'white' });
-let appSkin = new Skin({ fill: '#F2F2F2' });		// Gray background color from Figma
-let topSkin = new Skin({ fill: '#6FCF97' });		// Green header color from Figma
+
 let greenText = new Style({ font: "20px segoe script", color: '#66cc66' });
-let blackText = new Style({ font: "bold 32px segoe script", color: "black" });
-let blackText2 = new Style({ font: "20px arial", color: "black" });
-let blackText3 = new Style({ font: "bold 18px arial", color: "black" });
+let blackText = new Style({ font: "20px arial", color: "black" });
 let titleText = new Style({ font: "30px ribeye marrow", color: "black" });
 
 let smallBlackText = new Style({ font: "14px arial", color: "black" });
@@ -24,7 +20,7 @@ let WaterButton = Container.template($ =>({
   exclusiveTouch: true, active: true, left: 0, bottom: 0, top: 0, right: 0,
   contents:[
     Label($, {
-      hidden: false, skin: $.skin, string: "water", height: 30, width: 100, style: blackText2
+      hidden: false, skin: $.skin, string: "water", height: 30, width: 100, style: blackText
     })
   ],
   behavior: Behavior({
@@ -38,7 +34,7 @@ let BlueButton = Container.template($ =>({
   exclusiveTouch: true, active: true, left: 0, bottom: 0, top: 0, right: 0,
   contents:[
     Label($, {
-      hidden: false, skin: $.skin, string: $.string, height: 30, style: blackText2, width: 100,
+      hidden: false, skin: $.skin, string: $.string, height: 30, style: blackText, width: 100,
     })
   ],
   behavior: Behavior({

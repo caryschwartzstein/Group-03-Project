@@ -126,6 +126,7 @@ for (let i = 0; i < plantTypes.length; i++) {
 }
 
 export var gardens = [];
-gardens.push(new Garden([new Plant(rosemary)]));
-gardens.push(new Garden([new Plant(strawberry), new Plant(rosemary), new Plant(strawberry)]));
-gardens.push(new Garden());
+//gardens.push(new Garden([new Plant(rosemary)]));
+//gardens.push(new Garden([new Plant(strawberry), new Plant(rosemary), new Plant(strawberry)]));
+gardens.push(new Garden([new Plant(strawberry), new Plant(strawberry)]));
+//gardens.push(new Garden());
