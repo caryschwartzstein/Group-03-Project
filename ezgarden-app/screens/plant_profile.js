@@ -3,18 +3,15 @@ import * as screenUtils from '../screen_utils';
 import * as assets from "../assets";
 import * as notifications from 'notifications';
 
-let blueButtonSkin = new Skin({ fill: '#56CCF2' }); 
+let blueButtonSkin = new Skin({ fill: '#6CA3C1' }); 
 let whiteSkin = new Skin({ fill: 'white' });
+let buttonSkin = new Skin ({fill: 'white', borders: {left: 1, right: 1, top: 1, bottom: 1}, stroke: "black"});
+let headerLineSkin = new Skin({ fill: '#66cc66' });
 
-let greenText = new Style({ font: "20px segoe script", color: '#66cc66' });
+let greenText = new Style({ font: "bold 24px segoe script", color: '#66cc66' });
 let blackText = new Style({ font: "20px arial", color: "black" });
-let titleText = new Style({ font: "30px ribeye marrow", color: "black" });
-
+let titleText = new Style({ font: "bold 30px ribeye marrow", color: "black" });
 let smallBlackText = new Style({ font: "14px arial", color: "black" });
-let buttonStyle = new Style({font: '20px', color: 'black', left: 4, right: 4, top: 4, bottom: 4});
-let buttonSkin = new Skin ({fill: 'white', borders: {left: 1, right: 1, top: 1, bottom: 1}, 
-    stroke: "black"});
-
 
 let WaterButton = Container.template($ =>({
   exclusiveTouch: true, active: true, left: 0, bottom: 0, top: 0, right: 0,
@@ -61,8 +58,7 @@ let PlantInformation = Column.template($ => ({
                  string: "Planted: 2 weeks ago"}),
              ]
            }),
-           new Label({ style: new Style({ font: "18px segoe script", color: '#66cc66' }), left: 0, right: 0,
-              top: 10, string: "More Info"}),
+           new Label({ style: greenText, left: 0, right: 0, top: 10, string: "More Info"}),
          ]
       }),
       new Line({ 
@@ -88,10 +84,10 @@ let PlantInformation = Column.template($ => ({
 }));
 
 export var ImgButton = Container.template($ => ({
-    active: true, top: 0, bottom: 0, left: 3, right: 3, width: 30,
+    active: true, top: 0, bottom: 0, left: 3, right: 3, width: 30, height: 30,
     behavior: Behavior({
         onTouchEnded: function(content){
-        	$.nextScreenFunc();
+        	$.callFunc();
         },
     }),
    contents: [ new Picture({ height: 30, url: $.url  }) ]
@@ -102,14 +98,14 @@ var PlantProfileScreen = Column.template($ => ({
     skin: whiteSkin,
     contents: [
        new Line({ 
-         left: 0, right: 0, top: 10, bottom: 0, height: 30, 
+         left: 10, right: 10, top: 0, height: 50,
          contents:[
-            new ImgButton({ url: assets.images.home2, nextScreenFunc: screenUtils.showHome }),
-            new Label({ width: 200, left: 0, right: 0, top: 0, bottom: 0, style: titleText, string: "Rosemary #1" }),
+            new assets.ImgButton({ url: assets.images.home2, callFunc: screenUtils.showHome }),
+            new Label({ width: 200, left: 0, right: 0, top: 0, bottom: 0, style: titleText, string: "Rosemary" }),
          ]
       }),
       new Line({ 
-         left: 20, right: 20, top: 10, height: 2, skin: new Skin({ fill: '#66cc66' }) 
+         left: 20, right: 20, top: 0, height: 2, skin: headerLineSkin
       }),
       new Line({ 
           name: 'middle',

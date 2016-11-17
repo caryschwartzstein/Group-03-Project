@@ -4,7 +4,6 @@ import * as screenUtils from '../screen_utils';
 import * as notifications from 'notifications';
 import * as plantSeed from 'plant_seed';
 
-// STYLES
 let whiteSkin = new Skin({ fill: 'white' });
 
 let grayText = new Style({ font: "18px arial", color: "#757575" });
@@ -15,6 +14,29 @@ var StringTemplate = Text.template($ => ({
     left: 10, right: 10, top: 10, bottom: 0,
     style: $.style,
     string: $.string
+}));
+
+export var NotificationsButton = Container.template($ => ({
+    active: true, top: 0, bottom: 0, width: 30,
+    behavior: Behavior({
+        onTouchEnded: function(content) {
+        	$.callFunc();
+        },
+    }),
+   contents: [
+        new Picture({ top: 0, bottom: 0, left: 0, right: 0, url: assets.images.circle,
+        	behavior: Behavior({
+        		onCreate: function(content) {
+        			content.effect = new Effect();
+        			content.effect.colorize("#DC3E3E");
+        		}
+        	})
+        }),
+        Label($, { top: 0, bottom: 0, left: 0, right: 0,
+            style: $.style,
+            string: $.string
+        })
+   ]
 }));
 
 export var Garden = Column.template($ => ({
@@ -33,7 +55,7 @@ export var PlantButton = Container.template($ => ({
     active: true, top: 10, left: 0, right: 0, height: $.height, width: $.width,
     behavior: Behavior({
         onTouchEnded: function(content) {
-        	$.nextScreenFunc();
+        	$.callFunc();
         },
     }),
    contents: [
@@ -50,7 +72,7 @@ var HomeScreen = Column.template($ => ({
     contents: [
         new assets.Header({
 			string: "My Garden",
-			rightElement: new assets.NavButton({ style: redText, string: "1", nextScreenFunc: screenUtils.showNotifications })
+			rightElement: new NotificationsButton({ style: assets.titleText, string: "1", callFunc: screenUtils.showNotifications })
 		}),
         new Column({ name: "column", top: 0, left: 0, bottom: 0, right: 0 }),
     ]
@@ -71,7 +93,7 @@ export function createGarden(garden, gardenTitle) {
 	for (var i = 0; i < garden.plants.length; i++) {
 		let plantButton = new PlantButton({
 	        url: garden.plants[i].plantType.image,
-	        nextScreenFunc: screenUtils.showPlantProfile,
+	        callFunc: screenUtils.showPlantProfile,
 	        top: 5,
 	        height: 50,
 	        width: 50,
@@ -81,7 +103,7 @@ export function createGarden(garden, gardenTitle) {
 	for (var i = garden.plants.length; i < 3; i++) {
 		let plantButton = new PlantButton({
 	        url: assets.images.add,
-	        nextScreenFunc: screenUtils.showPlantSeed,
+	        callFunc: screenUtils.showPlantSeed,
 	        top: 5,
 	        height: 50,
 	        width: 50,

@@ -24,30 +24,15 @@ export var greenText = new Style({ font: "20px", color: "#66cc66" });
 export var blackText3 = new Style({ font: "bold 18px arial", color: "black" });
 export var blackText = new Style({ font: "bold 32px segoe script", color: "black" });
 export var whiteText = new Style( { font: "20px", color: "white"});
-export var titleText = new Style({ font: "28px segoe script", color: "white" });
+export var titleText = new Style({ font: "30px segoe script", color: "white" });
 
 // Templates
-export var NavButton = Container.template($ => ({
-    active: true, top: 0, bottom: 0, width: 30,
-    behavior: Behavior({
-        onTouchEnded: function(content){
-        	$.nextScreenFunc();
-        },
-    }),
-   contents: [
-        Label($, { top: 0, bottom: 0, left: 0, right: 0,
-            style: whiteText,
-            string: $.string
-        })
-   ]
-}));
-
 export var Header = Container.template($ => ({
 	name: 'header',
 	left: 0, right: 0, top: 0, height: 50,
 	skin: topSkin,
 	contents: [
-	    new Line({ top: 0, left: 10, bottom: 0, right: 0,
+	    new Line({ top: 0, left: 10, bottom: 0, right: 10,
 	        contents: [
 	            $.leftElement,
 	            new Label({ top: 0, left: 0, bottom: 0, right: 0, style: titleText, string: $.string }),
@@ -61,7 +46,7 @@ export var ImgButton = Container.template($ => ({
     active: true, top: 0, bottom: 0, width: 30,
     behavior: Behavior({
         onTouchEnded: function(content){
-        	$.nextScreenFunc();
+        	$.callFunc();
         },
     }),
    contents: [ new Picture({ top: 10,  height: 30, url: $.url  }) ]

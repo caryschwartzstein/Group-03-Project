@@ -8,7 +8,7 @@ export var PlantSeedScreen = Column.template ($ => ({
 	contents: [
 		new assets.Header({
 			string: "Plant Seed",
-			leftElement: new assets.ImgButton({ url: assets.images.back2, nextScreenFunc: screenUtils.showHome }),
+			leftElement: new assets.ImgButton({ url: assets.images.back2, callFunc: screenUtils.showHome }),
 		})
 	]
 }));
@@ -27,7 +27,7 @@ export var PlantButton = Container.template (lst => ({
         	});
             congratsScreen.add(new assets.Header({
     			string: "",
-    			leftElement: new assets.ImgButton({ url: assets.images.home2, nextScreenFunc: screenUtils.showHome }),
+    			leftElement: new assets.ImgButton({ url: assets.images.home2, callFunc: screenUtils.showHome }),
     		}));
             congratsScreen.add(new Label({top: 5, height: 35, right: 0, left: 0, string: lst[0], style: assets.blackText}));
             congratsScreen.add(new Picture({top: 5, height: 250, width: 150, url: lst[1]}));
@@ -63,7 +63,6 @@ export function getScreen() {
 	plant4.add(new PlantButton(["Sunflower", assets.images.sunPot]));
 	var plant5 = new ChoosePlant(["rose", assets.images.flower]);
 	plant5.add(new PlantButton(["Rose", assets.images.rosePot]));
-
 
 	screen.add(plant1)
 	screen.add(plant2)

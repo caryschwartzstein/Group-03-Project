@@ -14,7 +14,7 @@ var LiveScreen = Column.template($ => ({
           height: 60,
           contents: [
              new plantProfile.ImgButton({ url: assets.images.back2, 
-            	 nextScreenFunc: function() { screenUtils.showPlantProfile("right"); },
+            	 callFunc: function() { screenUtils.showPlantProfile("right"); },
              }),
              new Label({ style: new Style({font: 'bold 25px', color: 'black'}), 
                left: 30, height: 50, string: "Rosemary #1 Live"})

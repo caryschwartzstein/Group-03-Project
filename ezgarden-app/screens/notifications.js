@@ -104,7 +104,7 @@ export var NotificationScreen = Column.template($ => ({
     contents: [
         new assets.Header({
 			string: "Notifications",
-			leftElement: new assets.ImgButton({ url: assets.images.home2, nextScreenFunc: screenUtils.showHome }),
+			leftElement: new assets.ImgButton({ url: assets.images.home2, callFunc: screenUtils.showHome }),
 		}),
         new Column({name: "column", top: 0, left: 0, bottom: 0, right: 0,
             contents: []
