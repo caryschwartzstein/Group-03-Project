@@ -7,13 +7,15 @@ let blueButtonSkin = new Skin({ fill: '#6CA3C1' });
 let whiteSkin = new Skin({ fill: 'white' });
 let buttonSkin = new Skin ({fill: 'white', borders: {left: 1, right: 1, top: 1, bottom: 1}, stroke: "black"});
 let headerLineSkin = new Skin({ fill: '#66cc66' });
+let backBarSkin = new Skin({ fill: '#C4C4C4' });
+let frontBarSkin = new Skin({ fill: '#56CCF2' });
 
-let greenText = new Style({ font: "bold 24px segoe script", color: '#66cc66' });
 let blackText = new Style({ font: "20px arial", color: "black" });
 let titleText = new Style({ font: "bold 30px ribeye marrow", color: "black" });
-let smallBlackText = new Style({ font: "14px arial", color: "black" });
+let greenText = new Style({ font: "bold 24px segoe script", color: '#66cc66', horizontal: "left" });
+let smallBlackText = new Style({ font: "14px arial", color: "black", horizontal: "left" });
 
-let WaterButton = Container.template($ =>({
+var WaterButton = Container.template($ =>({
   exclusiveTouch: true, active: true, left: 0, bottom: 0, top: 0, right: 0,
   contents:[
     Label($, {
@@ -27,7 +29,7 @@ let WaterButton = Container.template($ =>({
   })
 }));
 
-let BlueButton = Container.template($ =>({
+var BlueButton = Container.template($ =>({
   exclusiveTouch: true, active: true, left: 0, bottom: 0, top: 0, right: 0,
   contents:[
     Label($, {
@@ -40,25 +42,23 @@ let BlueButton = Container.template($ =>({
   })
 }));
 
-let PlantInformation = Column.template($ => ({
+/*var PlantInformation = Column.template($ => ({
     top: 20, bottom: 0, left: 0, right: 0, height: 200, skin: whiteSkin, active: true,
     contents: [
-      new Line({ 
-         left: 0, right: 0, top: 10,
+      new Line({ left: 0, right: 0, top: 10,
          contents:[
            new Column({ top: 0, bottom: 0, left: 0, right: 0, 
              contents: [
-               new Label({ style: greenText, left: 10, right: 0,
-                 top: 10, string: "Plant Information"}),
-               new Label({  
-                 left: 0, right: 0, bottom: 5, style: smallBlackText, 
-                 string: "Last watered: 6 hours ago"}),
-               new Label({  
-                 left: 0, right: 0, bottom: 10, style: smallBlackText, 
-                 string: "Planted: 2 weeks ago"}),
+               new Label({ style: greenText, left: 10, right: 0, top: 10,
+            	   string: "Plant Information"}),
+               new Label({ left: 0, right: 0, bottom: 5, style: smallBlackText, 
+            	   string: "Watered 6 hours ago"}),
+               new Label({ left: 0, right: 0, bottom: 10, style: smallBlackText, 
+            	   string: "Planted 2 weeks ago"}),
              ]
            }),
-           new Label({ style: greenText, left: 0, right: 0, top: 10, string: "More Info"}),
+           new Label({ style: greenText, left: 0, right: 0, top: 10, 
+        	   string: "More Info" }),
          ]
       }),
       new Line({ 
@@ -66,20 +66,46 @@ let PlantInformation = Column.template($ => ({
          contents:[
            new Column({ top: 0, bottom: 0, left: 0, right: 0, 
              contents: [
-               new Label({ style: greenText, left: 10, right: 0,
-                 top: 10, string: "Care Tips"}),
-               new Label({  
-                 left: 0, right: 0, bottom: 5, style: smallBlackText, 
-                 string: "Plant indoors"}),
-               new Label({  
-                 left: 0, right: 0, bottom: 10, style: smallBlackText, 
-                 string: "Trim plant"}),
+               new Label({ style: greenText, left: 10, right: 0, top: 10, 
+            	   string: "Care Tips"}),
+               new Label({ left: 0, right: 0, bottom: 5, style: smallBlackText, 
+            	   string: "Plant indoors"}),
+               new Label({ left: 0, right: 0, bottom: 10, style: smallBlackText, 
+            	   string: "Trim plant"}),
              ]
            }),
            new Label({ style: new Style({ font: "18px segoe script", color: '#66cc66' }), left: 0, right: 0,
               top: 10, string: ""}),
          ]
       })
+    ]
+}));*/
+
+export var AmountBar = Container.template($ => ({
+	top: 10, left: 10, width: 180, height: 11,
+	contents: [
+	    new Container({ name: "backBar", top: 0, bottom: 0, left: 0, right: 0, skin: backBarSkin }),
+	    new Container({ name: "frontBar", top: 0, bottom: 0, left: 0, width: 110, skin: frontBarSkin }),
+	]
+}));
+
+var PlantInformation = Column.template($ => ({
+	top: 20, bottom: 0, left: 0, right: 0, height: 200, skin: whiteSkin, active: true,
+    contents: [
+        new Column({ top: 0, left: 10, width: 160,
+        	contents: [
+                new Label({ left: 0, right: 0, top: 10, style: greenText,
+	            	string: "Plant Information"}),
+	            new Label({ left: 0, right: 0, bottom: 5, style: smallBlackText, 
+	            	string: "Watered 6 hours ago"}),
+	            new Label({ left: 0, right: 0, bottom: 10, style: smallBlackText, 
+	            	string: "Planted 2 weeks ago"}),
+	        ]
+        }),
+        new AmountBar({}),
+        new AmountBar({}),
+        new Label({ style: greenText, left: 0, right: 0, top: 10, 
+        	string: "More Info" }),
     ]
 }));
 
@@ -97,40 +123,35 @@ var PlantProfileScreen = Column.template($ => ({
     top: 0, bottom: 0, left: 0, right: 0, 
     skin: whiteSkin,
     contents: [
-       new Line({ 
-         left: 10, right: 10, top: 0, height: 50,
+       new Line({ left: 10, right: 10, top: 0, height: 50,
          contents:[
             new assets.ImgButton({ url: assets.images.home2, callFunc: screenUtils.showHome }),
             new Label({ width: 200, left: 0, right: 0, top: 0, bottom: 0, style: titleText, string: "Rosemary" }),
          ]
       }),
-      new Line({ 
-         left: 20, right: 20, top: 0, height: 2, skin: headerLineSkin
+      new Line({ left: 20, right: 20, top: 0, height: 2, skin: headerLineSkin
       }),
-      new Line({ 
-          name: 'middle',
-          height: 170, top: 10,
+      new Line({ name: 'middle', height: 170, top: 10,
           contents: [
-            new Picture({height: 150, width: 100, url: assets.images.rosemaryPot}),
-            new Picture({top: 130, height: 40, width: 40, url: assets.images.magGlass, active: true, 
-              behavior: Behavior({
-                onTouchEnded: function(content, id, x, y, ticks) {
-                	screenUtils.showPlantLive();
-                }
-              })
+            new Picture({ top: 0, height: 150, width: 100, url: assets.images.rosemaryPot, active: true,
+            	behavior: Behavior({
+                    onTouchEnded: function(content, id, x, y, ticks) {
+                    	screenUtils.showPlantLive();
+                    }
+                  })
             }),
-            new Column({
-              name: "buttons",
-              left: 30,
-              right: 0,
-              bottom: 10,
-              top: 30,
+            
+            /*new Picture({ top: 130, height: 40, width: 40, url: assets.images.magGlass, active: true, 
+              
+            }),
+            new Column({ name: "buttons", left: 30, right: 0, bottom: 10, top: 30,
               contents: [
+                         
                 new WaterButton({skin: blueButtonSkin}),
                 new BlueButton({skin: blueButtonSkin, string: "sunlight" }),
-                new BlueButton({skin: blueButtonSkin, string: "nutrients"})
+                new BlueButton({skin: blueButtonSkin, string: "nutrients" })
               ]
-            })
+            })*/
           ]
       }),
       new PlantInformation()
