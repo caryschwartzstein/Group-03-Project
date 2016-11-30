@@ -3,6 +3,7 @@ import * as assets from '../assets';
 import * as screenUtils from '../screen_utils';
 import * as notifications from 'notifications';
 import * as plantSeed from 'plant_seed';
+import * as plantProfile from 'plant_profile';
 
 let whiteSkin = new Skin({ fill: 'white' });
 
@@ -91,9 +92,14 @@ export function createGarden(garden, gardenTitle) {
 	var gardenContainer = new Garden({ string: gardenTitle });
 	getScreen().column.add(gardenContainer);
 	for (var i = 0; i < garden.plants.length; i++) {
+		let plant = garden.plants[i];
 		let plantButton = new PlantButton({
-	        url: garden.plants[i].plantType.image,
-	        callFunc: screenUtils.showPlantProfile,
+	        url: plant.plantType.image,
+	        callFunc: function() {
+	        	plantProfile.plant = plant;
+	        	plantProfile.refresh();
+	        	screenUtils.showPlantProfile();
+	        },
 	        top: 5,
 	        height: 50,
 	        width: 50,

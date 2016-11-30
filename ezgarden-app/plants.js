@@ -46,9 +46,11 @@ Plant.prototype.water = function() {
 	this.wateredTime = new Date();
 }
 
-Plant.prototype.getWateringTimeStr = function() {
-	//return formatTimeStr((this.wateredTime.getTime() + this.plantType.wateringTime) - new Date().getTime());
-	return formatTimeStr(this.plantType.wateringTime * this.waterLevels);
+Plant.prototype.getWateringTimeStr = function(factor) {
+	if (factor == null) {
+		factor = this.waterLevels;
+	}
+	return formatTimeStr(this.plantType.wateringTime * factor);
 }
 
 Plant.prototype.getWateredTimeStr = function() {
@@ -84,7 +86,7 @@ function formatTimeStr(time) {
 	if (num != 1) {
 		str += "s";
 	}
-	return [num, str];
+	return num + " " + str;
 }
 
 function generateUUID() {
