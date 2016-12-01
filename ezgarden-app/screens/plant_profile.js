@@ -69,7 +69,7 @@ var PlantInformation = Column.template($ => ({
         	contents: [new AmountBar({}), new BlueButton({ 
         		string: "nutrition",
         		callFunc: function() {
-        			//screenUtils.showPopup(new notifications.WateredPopup({ closeFunc: screenUtils.closePopups }));
+        			screenUtils.showPopup(new notifications.NutritionPopup({ plant: plant, closeFunc: screenUtils.closePopups }));
         		}})
         	]
         }),

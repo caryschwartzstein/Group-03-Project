@@ -89,6 +89,37 @@ export var WarningWateredPopup = Container.template($ => ({
     ]
 }));
 
+export var NutritionPopup = Container.template($ => ({
+    left: 40, right: 40, skin: popupSkin,
+    contents: [
+     new Column({ left: 0, right: 0, top: 0, height: 140,
+         contents: [
+             new StringTemplate({ string: 'Congratulations!', style: greenPopupText}),
+             new StringTemplate({ string: 'Fertilizer has been added to your ' + $.plant.plantType.name.toLowerCase() + '.',
+            	 style: grayText }),
+             new PopupButton({ width: 50, string: "OK", callFunc: $.closeFunc })
+         ]
+     })
+    ]
+}));
+
+export var WarningNutritionPopup = Container.template($ => ({
+    left: 20, right: 20, top: 40, bottom: 60, skin: whiteSkin,
+    active: true,
+    contents: [
+	    new Column({ left: 0, right: 0, top: 0, bottom: 70,
+	         contents: [
+	             new StringTemplate({ string: 'Whoops!', style: greenPopupText}),
+	             new StringTemplate({ string: 'Your ' + $.plant.plantType.name.toLowerCase() 
+	            	 + ' seems to have plenty of nutrients, are you sure you want to add more? ',
+	            	 style: blackText }),
+	         ]
+	     }),
+	     new PopupButton({ width: 50, string: "Cancel", callFunc: $.closeFunc }),
+	     new PopupButton({ width: 50, string: "Proceed", callFunc: $.closeFunc })
+    ]
+}));
+
 var Notification = Container.template($ => ({
   name: 'notification',
   left: 0, right: 0, top: 20, height: 60,

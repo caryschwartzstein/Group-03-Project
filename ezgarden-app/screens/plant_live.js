@@ -18,7 +18,7 @@ var LiveScreen = Column.template($ => ({
 	        ]
 	    }),
 	    new Line({ left: 20, right: 20, top: 0, height: 2, skin: plantProfile.headerLineSkin }),
-	    new Picture({ left: 0, right: 0, top: 0, bottom: 0, aspect: "fill", url: assets.images.rosemary })  
+	    new Picture({ left: 0, right: 0, top: 0, bottom: 0, aspect: "fill", url: assets.images.rosemaryLive })  
     ]
 }));
 

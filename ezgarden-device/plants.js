@@ -19,7 +19,7 @@ function tipLowSun(amount) {
 export function PlantType(name, image, wateringTime) {
 	this.name = name;
 	this.image = image;
-	this.wateringTime = (wateringTime * 60 * 60 * 1000); // Convert hours to millis
+	this.wateringTime = (wateringTime * 60 * 60 * 1000);
 	this.isIndoor = false;
 	this.shouldTrim = false;
 	this.tips = [];
@@ -46,9 +46,11 @@ Plant.prototype.water = function() {
 	this.wateredTime = new Date();
 }
 
-Plant.prototype.getWateringTimeStr = function() {
-	//return formatTimeStr((this.wateredTime.getTime() + this.plantType.wateringTime) - new Date().getTime());
-	return formatTimeStr(this.plantType.wateringTime * this.waterLevels);
+Plant.prototype.getWateringTimeStr = function(factor) {
+	if (factor == null) {
+		factor = this.waterLevels;
+	}
+	return formatTimeStr(this.plantType.wateringTime * factor);
 }
 
 Plant.prototype.getWateredTimeStr = function() {
@@ -84,7 +86,7 @@ function formatTimeStr(time) {
 	if (num != 1) {
 		str += "s";
 	}
-	return [num, str];
+	return num + " " + str;
 }
 
 function generateUUID() {
@@ -126,7 +128,6 @@ for (let i = 0; i < plantTypes.length; i++) {
 }
 
 export var gardens = [];
-//gardens.push(new Garden([new Plant(rosemary)]));
-//gardens.push(new Garden([new Plant(strawberry), new Plant(rosemary), new Plant(strawberry)]));
-gardens.push(new Garden([new Plant(strawberry), new Plant(strawberry)]));
-//gardens.push(new Garden());
+gardens.push(new Garden([new Plant(rosemary)]));
+gardens.push(new Garden([new Plant(strawberry), new Plant(rosemary), new Plant(strawberry)]));
+gardens.push(new Garden());

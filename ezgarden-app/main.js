@@ -8,7 +8,3 @@ import * as plantSeed from "screens/plant_seed";
 import * as plants from 'plants';
 
 screenUtils.showHome();
-
-for (var i = 0; i < plants.gardens.length; i++) {
-	home.createGarden(plants.gardens[i], "Garden " + (i + 1));
-}

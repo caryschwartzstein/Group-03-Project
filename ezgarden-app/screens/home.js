@@ -1,6 +1,7 @@
 import { Button, ButtonBehavior } from '../libraries/buttons';
 import * as assets from '../assets';
 import * as screenUtils from '../screen_utils';
+import * as plants from '../plants';
 import * as notifications from 'notifications';
 import * as plantSeed from 'plant_seed';
 import * as plantProfile from 'plant_profile';
@@ -56,7 +57,7 @@ export var PlantButton = Container.template($ => ({
     active: true, top: 10, left: 0, right: 0, height: $.height, width: $.width,
     behavior: Behavior({
         onTouchEnded: function(content) {
-        	$.callFunc();
+        	$.callFunc(content);
         },
     }),
    contents: [
@@ -84,36 +85,42 @@ export function getScreen() {
 	if (screen) {
 		return screen;
 	}
-	screen = new HomeScreen();
+	refresh();
 	return screen;
 }
 
-export function createGarden(garden, gardenTitle) {
-	var gardenContainer = new Garden({ string: gardenTitle });
-	getScreen().column.add(gardenContainer);
-	for (var i = 0; i < garden.plants.length; i++) {
-		let plant = garden.plants[i];
-		let plantButton = new PlantButton({
-	        url: plant.plantType.image,
-	        callFunc: function() {
-	        	plantProfile.plant = plant;
-	        	plantProfile.refresh();
-	        	screenUtils.showPlantProfile();
-	        },
-	        top: 5,
-	        height: 50,
-	        width: 50,
-	    });
-		gardenContainer.line.add(plantButton);
-	}
-	for (var i = garden.plants.length; i < 3; i++) {
-		let plantButton = new PlantButton({
-	        url: assets.images.add,
-	        callFunc: screenUtils.showPlantSeed,
-	        top: 5,
-	        height: 50,
-	        width: 50,
-	    });
-		gardenContainer.line.add(plantButton);
+export function refresh() {
+	screen = new HomeScreen();
+	for (var i = 0; i < plants.gardens.length; i++) {
+		var garden = plants.gardens[i];
+		var gardenContainer = new Garden({ string: "Garden " + (i + 1) });
+		getScreen().column.add(gardenContainer);
+		
+		for (var j = 0; j < garden.plants.length; j++) {
+			let plant = garden.plants[j];
+			let plantButton = new PlantButton({
+				top: 5, height: 50, width: 50,
+				url: plant.plantType.image,
+		        callFunc: function() {
+		        	plantProfile.plant = plant;
+		        	plantProfile.refresh();
+		        	screenUtils.showPlantProfile();
+		        },
+		    });
+			gardenContainer.line.add(plantButton);
+		}
+		
+		for (var j = garden.plants.length; j < 3; j++) {
+			let localGarden = garden;
+			let plantButton = new PlantButton({
+				top: 5, height: 50, width: 50,
+		        url: assets.images.add,
+		        callFunc: function(content) {
+		        	plantSeed.garden = localGarden;
+		        	screenUtils.showPlantSeed();
+		        }
+		    });
+			gardenContainer.line.add(plantButton);
+		}
 	}
 }

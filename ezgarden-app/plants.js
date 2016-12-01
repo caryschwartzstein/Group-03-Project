@@ -19,7 +19,7 @@ function tipLowSun(amount) {
 export function PlantType(name, image, wateringTime) {
 	this.name = name;
 	this.image = image;
-	this.wateringTime = (wateringTime * 60 * 60 * 1000); // Convert hours to millis
+	this.wateringTime = (wateringTime * 60 * 60 * 1000);
 	this.isIndoor = false;
 	this.shouldTrim = false;
 	this.tips = [];
