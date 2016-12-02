@@ -96,9 +96,7 @@ var CareTips = Column.template($ => ({
 	            new Label({ left: 0, right: 0, top: 5, style: smallBlackText, 
 	            	string: "Trim plant after it flowers"}),
 	        ]
-        }),
-        new Label({ style: greenText, left: 0, right: 0, top: 10, 
-        	string: "More Info" }),
+        })
     ]
 }));
 
