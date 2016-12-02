@@ -5,14 +5,15 @@ import * as plants from 'plants';
 import * as home from 'home';
 
 let whiteSkin = new Skin({ fill: 'white' });
-let popupSkin = new Skin({ fill: "white", stroke: "#757575", borders: { left: 1, top: 1, right: 1, bottom: 1 }});
+let graySkin = new Skin({ fill: '#b7b7b7' });
+let popupSkin = new Skin({ fill: "white", stroke: "#b7b7b7", borders: { left: 1, top: 1, right: 1, bottom: 1 }});
 let popupButtonSkin = new Skin({ fill: '#66cc66' });
 
 let blackText = new Style({ font: "18px arial", color: "black" });
 let grayText = new Style({ font: "18px arial", color: "#757575" });
-let whiteText = new Style({ font: "22px arial", color: "white" });
-let greenPopupText = new Style({ font: "18px arial", color: "#66cc66" });
-let popupButtonText = new Style({ font: "18px arial", color: "#4F4F4F" });
+let whiteText = new Style({ font: "18px arial", color: "white" });
+let greenPopupText = new Style({ font: "20px arial", color: "#66cc66" });
+let popupButtonText = new Style({ font: "17px arial", color: "#4F4F4F" });
 
 var currentNotification;
 
@@ -26,6 +27,7 @@ var StringTemplate = Text.template($ => ({
 // When popups appear, their container.active variable must be set to true
 export var WaterButton = Button.template($ => ({
 	top: 10, left: 0, height: 40, right: 20,
+	skin: graySkin, 
     contents: [
         new Label({ style: whiteText, string: "Water Garden 1" }),
     ],
@@ -48,6 +50,7 @@ export var WaterButton = Button.template($ => ({
 
 export var NutrientButton = Button.template($ => ({
 	top: 10, left: 0, height: 40, right: 20,
+	skin: graySkin, 
     contents: [
         new Label({ style: whiteText, string: "Feed Garden 1" }),
     ],
@@ -83,12 +86,12 @@ export var PopupButton = Button.template($ => ({
 export var WateredPopup = Container.template($ => ({
     left: 40, right: 40, skin: popupSkin,
     contents: [
-     new Column({ left: 0, right: 0, top: 0, height: 140,
+     new Column({ left: 2, right: 2, top: 0, height: 140,
          contents: [
-             new StringTemplate({ string: 'Congratulations!', style: greenPopupText}),
+             new StringTemplate({ string: 'CONGRATULATIONS!', style: greenPopupText}),
              new StringTemplate({ string: 'You just watered your ' + $.plant.plantType.name.toLowerCase()
             	 + '. You will need to water it again in '
-            	 + $.plant.getWateringTimeStr() + '.', style: grayText }),
+            	 + $.plant.getWateringTimeStr() + '.', style: popupButtonText }),
              new PopupButton({ width: 50, string: "OK", callFunc: $.closeFunc })
          ]
      })
