@@ -16,7 +16,7 @@ export var PlantSeedScreen = Container.template ($ => ({
             name: "scroller", active: true, top: 50, bottom: 0,
             contents: [
                 $.contentToScrollVertically,
-                VerticalScrollbar(), 
+                VerticalScrollbar(),
                 TopScrollerShadow(), 
                 BottomScrollerShadow(),
             ]                     

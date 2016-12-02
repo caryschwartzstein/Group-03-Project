@@ -25,7 +25,7 @@ var StringTemplate = Text.template($ => ({
 
 // When popups appear, their container.active variable must be set to true
 export var WaterButton = Button.template($ => ({
-    top: 10, left: 0, height: 40, width: 40, right: 20,
+	top: 10, left: 0, height: 40, right: 20,
     contents: [
         new Label({ style: whiteText, string: "Water" }),
     ],
@@ -125,10 +125,9 @@ var Notification = Container.template($ => ({
   left: 0, right: 0, top: 20, height: 60,
   skin: whiteSkin,
   contents: [
-    new Line({
-        top: 0, left: -10, bottom: 0, right: 0,
+    new Line({ top: 0, left: 0, bottom: 0, right: 0,
         contents: [
-            new Picture({ top: 0, left: 0,  right: 0, bottom: 0, height: 30,
+            new Picture({ left: 0, height: 60, width: 30, right: 0,
                 url: assets.images.rosemaryPot
             }),
             new WaterButton(),

@@ -49,7 +49,7 @@ var PlantInformation = Column.template($ => ({
 	            new Label({ left: 0, right: 0, top: 5, style: smallBlackText, 
 	            	string: "Watered " + plant.getWateredTimeStr() + " ago" }),
 	            new Label({ left: 0, right: 0, top: 5, style: smallBlackText, 
-	            	string: "Watered " + plant.getPlantedTimeStr() + " ago" }),
+	            	string: "Planted " + plant.getPlantedTimeStr() + " ago" }),
 	        ]
         }),
         new Container({ left: 0, right: 0, top: 10,
@@ -125,7 +125,7 @@ var PlantProfileScreen = Column.template($ => ({
       new Line({ left: 20, right: 20, top: 0, height: 2, skin: headerLineSkin }),
       new Line({ name: 'middle', height: 170, top: 0,
           contents: [
-            new Picture({ top: 10, height: 100, width: 100, url: assets.images.rosemaryPot, active: true,
+            new Picture({ top: 10, height: 100, width: 100, url: plant.plantType.image, active: true,
             	behavior: Behavior({
                     onTouchEnded: function(content, id, x, y, ticks) {
                     	screenUtils.showPlantLive();
