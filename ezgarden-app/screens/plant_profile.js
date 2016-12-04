@@ -5,23 +5,25 @@ import * as notifications from 'notifications';
 
 let WARNING_TIME = 1000 * 60 * 60 * 6;
 
-let blueButtonSkin = new Skin({ fill: '#6CA3C1' }); 
+let blueButtonSkin = new Skin({ fill: '#56CCF2' }); 
 let whiteSkin = new Skin({ fill: 'white' });
 let buttonSkin = new Skin ({fill: 'white', borders: {left: 1, right: 1, top: 1, bottom: 1}, stroke: "black"});
 export let headerLineSkin = new Skin({ fill: '#66cc66' });
 let backBarSkin = new Skin({ fill: '#C4C4C4' });
 let frontBarSkin = new Skin({ fill: '#56CCF2' });
 
-let blackText = new Style({ font: "18px arial", color: "black" });
+let blackText = new Style({ font: "16px arial", color: "black" });
 export let titleText = new Style({ font: "bold 30px ribeye marrow", color: "black" });
 let greenText = new Style({ font: "bold 24px segoe script", color: '#66cc66', horizontal: "left" });
 let smallBlackText = new Style({ font: "14px arial", color: "black", horizontal: "left" });
+let grayText = new Style({ font: "16px arial", color: "#333333", horizontal: "left" });
+let centerGrayText = new Style({ font: "16px arial", color: "#555555" });
 
 var BlueButton = Container.template($ => ({
-  exclusiveTouch: true, active: true, right: 10, height: 20, width: 100, skin: blueButtonSkin,
+  exclusiveTouch: true, active: true, right: 20, height: 26, width: 80, skin: blueButtonSkin,
   contents:[
     Label($, {
-      hidden: false, skin: $.skin, string: $.string, top: 0, bottom: 0, left: 0, right: 0, style: blackText
+      hidden: false, skin: $.skin, string: $.string, top: 0, bottom: 0, left: 0, right: 0, style: centerGrayText
     })
   ],
   behavior: Behavior({
@@ -32,7 +34,7 @@ var BlueButton = Container.template($ => ({
 }));
 
 export var AmountBar = Container.template($ => ({
-	width: 180, height: 10, left: 0,
+	width: 180, height: 16, left: 0,
 	contents: [
 	    new Container({ name: "backBar", top: 0, bottom: 0, left: 0, right: 0, skin: backBarSkin }),
 	    new Container({ name: "frontBar", top: 0, bottom: 0, left: 0, width: 110, skin: frontBarSkin }),
@@ -40,15 +42,15 @@ export var AmountBar = Container.template($ => ({
 }));
 
 var PlantInformation = Column.template($ => ({
-	top: -30, left: 10, right: 0, height: 160, skin: whiteSkin, active: true,
+	top: -30, left: 20, right: 0, height: 160, skin: whiteSkin, active: true,
     contents: [
         new Column({ top: 0, left: 0, right: 0,
         	contents: [
                 new Label({ left: 0, right: 0, top: 0, style: greenText,
 	            	string: "Plant Information"}),
-	            new Label({ left: 0, right: 0, top: 5, style: smallBlackText, 
+	            new Label({ left: 4, right: 0, top: 5, style: grayText, 
 	            	string: "Watered " + plant.getWateredTimeStr() + " ago" }),
-	            new Label({ left: 0, right: 0, top: 5, style: smallBlackText, 
+	            new Label({ left: 4, right: 0, top: 5, style: grayText, 
 	            	string: "Planted " + plant.getPlantedTimeStr() + " ago" }),
 	        ]
         }),
@@ -85,20 +87,18 @@ var PlantInformation = Column.template($ => ({
 }));
 
 var CareTips = Column.template($ => ({
-	top: 0, bottom: 0, left: 10, right: 0, height: 100, skin: whiteSkin, active: true,
+	top: 20, bottom: 0, left: 20, right: 0, height: 100, skin: whiteSkin, active: true,
     contents: [
         new Column({ top: 0, left: 0, right: 0,
         	contents: [
                 new Label({ left: 0, right: 0, top: 0, style: greenText,
 	            	string: "Care Tips"}),
-	            new Label({ left: 0, right: 0, top: 5, style: smallBlackText, 
+	            new Label({ left: 4, right: 0, top: 5, style: grayText, 
 	            	string: "Plant indoors"}),
-	            new Label({ left: 0, right: 0, top: 5, style: smallBlackText, 
+	            new Label({ left: 4, right: 0, top: 5, style: grayText, 
 	            	string: "Trim plant after it flowers"}),
 	        ]
-        }),
-        new Label({ style: greenText, left: 0, right: 0, top: 10, 
-        	string: "More Info" }),
+        })
     ]
 }));
 

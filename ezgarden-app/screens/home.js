@@ -7,7 +7,6 @@ import * as plantSeed from 'plant_seed';
 import * as plantProfile from 'plant_profile';
 
 let whiteSkin = new Skin({ fill: 'white' });
-
 let grayText = new Style({ font: "18px arial", color: "#757575" });
 let redText = new Style({ font: "bold 24px arial", color: "red" });
 
@@ -26,7 +25,7 @@ export var NotificationsButton = Container.template($ => ({
         },
     }),
    contents: [
-        new Picture({ top: 0, bottom: 0, left: 0, right: 0, url: assets.images.circle,
+        new Picture({ height: 160, left: 0, right: 0, url: assets.images.circle,
         	behavior: Behavior({
         		onCreate: function(content) {
         			content.effect = new Effect();
@@ -74,7 +73,7 @@ var HomeScreen = Column.template($ => ({
     contents: [
         new assets.Header({
 			string: "My Garden",
-			rightElement: new NotificationsButton({ style: assets.titleText, string: "1", callFunc: screenUtils.showNotifications })
+			rightElement: new NotificationsButton({ style: assets.whiteText, string: "1", callFunc: screenUtils.showNotifications })
 		}),
         new Column({ name: "column", top: 0, left: 0, bottom: 0, right: 0 }),
     ]
