@@ -5,7 +5,8 @@ import * as plantProfile from 'plant_profile';
 
 let whiteSkin = new Skin({ fill: 'white' });
 
-let blackText = new Style({ font: "18px segoe script", color: "black" });
+let blackText = new Style({ font: "16px segoe script", color: "black" });
+let greenText = new Style({ font: "bold 16px segoe script", color: "#6FCF97" });
 
 var gardenContainer;
 var screen;
@@ -23,7 +24,7 @@ export var PlantButton = Column.template($ => ({
     }),
    contents: [
         new Picture({ name: "plantPicture", height: $.height, width: $.width }),
-        new Label({ name: "plantLabel", top: 5, width: 100, height: 20, style: blackText, string: "" }),
+        new Label({ name: "plantLabel", top: 5, width: 100, height: 20, style: greenText, string: "" }),
         new Label({ name: "wateringLabel", width: 100, height: 20, style: blackText, string: "" }),
    ]
 }));

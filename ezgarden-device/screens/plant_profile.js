@@ -5,7 +5,8 @@ let whiteSkin = new Skin({ fill: 'white' });
 let blueSkin = new Skin({ fill: '#B8E5F4' });
 let popupSkin = new Skin({ fill: "white", stroke: "#757575", borders: { left: 1, top: 1, right: 1, bottom: 1 }});
 
-let blackText = new Style({ font: "18px segoe script", color: "black" });
+let blackText = new Style({ font: "16px segoe script", color: "black" });
+let boldText = new Style({ font: "bold 18px segoe script", color: "black" });
 let greenPopupText = new Style({ font: "18px arial", color: "#6FCF97" });
 let grayText = new Style({ font: "18px arial", color: "#757575" });
 
@@ -51,7 +52,7 @@ var PlantProfileScreen = Column.template($ => ({
 			string: "Plant Profile",
 			leftElement: new assets.ImgButton({ url: assets.images.back2, callFunc: screenUtils.showHome }),
 		}),
-        new Label({ name: "plantLabel", top: 5, height: 20, width: 200, style: blackText, string: plant.plantType.name }),
+        new Label({ name: "plantLabel", top: 5, height: 20, width: 200, style: boldText, string: plant.plantType.name }),
         new Picture({ name: "plantPicture", top: 5, height: 80, width: 80, url: plant.plantType.image }),
         new Label({ name: "wateredLabel", top: 5, height: 20, width: 200, style: blackText, string: "Watered 2 hours ago" }),
         new Label({ name: "wateringLabel", top: 0, height: 20, width: 200, style: blackText, string: "Water in 2 hours " }),
@@ -104,9 +105,9 @@ export function refreshScreen() {
 		let wateredTime = plant.getWateredTimeStr();
 		let wateringTime = plant.getWateringTimeStr();
 		let plantedTime = plant.getPlantedTimeStr();
-		screen.wateredLabel.string = "Watered " + wateredTime[0] + " " + wateredTime[1] + " ago";
-		screen.wateringLabel.string = "Water in " + wateringTime[0] + " " + wateringTime[1];
-		screen.plantedLabel.string = "Planted " + plantedTime[0] + " " + plantedTime[1] + " ago";
+		screen.wateredLabel.string = "Watered " + wateredTime[0] + wateredTime[1] + " ago";
+		screen.wateringLabel.string = "Water in " + wateringTime[0] + wateringTime[1] + " hours";
+		screen.plantedLabel.string = "Planted " + plantedTime[0] + plantedTime[1] + " days ago";
 	}
 }
 
