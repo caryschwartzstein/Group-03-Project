@@ -67,9 +67,8 @@ export function refreshScreen() {
 		if (plantButton.plantLabel.string != plant.plantType.name) {
 			plantButton.plantLabel.string = plant.plantType.name;
 		}
-		
-		let wateringTime = plant.getWateringTimeStr();
-		plantButton.wateringLabel.string = "Water in " + (wateringTime[0]) + wateringTime[1].charAt(0);
+
+		plantButton.wateringLabel.string = "Water in " + plant.getWateringTimeStrShort();
 	}
 }
 

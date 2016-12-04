@@ -37,7 +37,7 @@ export var WateredPopup = Container.template($ => ({
          contents: [
              new StringTemplate({ string: 'Congratulations!', style: greenPopupText}),
              new StringTemplate({ string: 'You just watered your plant. You will need to water it again in '
-            	 + $.plant.getWateringTimeStr()[0] + ' ' + $.plant.getWateringTimeStr()[1] + '.', style: grayText }),
+            	 + $.plant.getWateringTimeStr() + '.', style: grayText }),
              new TextButton({ width: 50, string: "Close", callFunc: $.closeFunc })
          ]
      })
@@ -104,9 +104,9 @@ export function refreshScreen() {
 		let wateredTime = plant.getWateredTimeStr();
 		let wateringTime = plant.getWateringTimeStr();
 		let plantedTime = plant.getPlantedTimeStr();
-		screen.wateredLabel.string = "Watered " + wateredTime[0] + " " + wateredTime[1] + " ago";
-		screen.wateringLabel.string = "Water in " + wateringTime[0] + " " + wateringTime[1];
-		screen.plantedLabel.string = "Planted " + plantedTime[0] + " " + plantedTime[1] + " ago";
+		screen.wateredLabel.string = "Watered " + wateredTime + " ago";
+		screen.wateringLabel.string = "Water in " + wateringTime;
+		screen.plantedLabel.string = "Planted " + plantedTime + " ago";
 	}
 }
 
