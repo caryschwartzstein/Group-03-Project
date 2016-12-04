@@ -61,6 +61,13 @@ Plant.prototype.getPlantedTimeStr = function() {
 	return formatTimeStr(new Date().getTime() - this.plantedTime.getTime());
 }
 
+Plant.prototype.getWateringTimeStrShort = function(factor) {
+	let wateringTime = this.getWateringTimeStr();
+	let spaceIndex = wateringTime.indexOf(" ");
+	let wateringTimeShort = wateringTime.substr(0, spaceIndex) + wateringTime[spaceIndex + 1];
+	return wateringTimeShort;
+}
+
 function formatTimeStr(time) {
 	let str = "";
 	let num = 0;
@@ -128,6 +135,6 @@ for (let i = 0; i < plantTypes.length; i++) {
 }
 
 export var gardens = [];
-gardens.push(new Garden([new Plant(rosemary)]));
+//gardens.push(new Garden([new Plant(rosemary)]));
 gardens.push(new Garden([new Plant(strawberry), new Plant(rosemary), new Plant(strawberry)]));
-gardens.push(new Garden());
+//gardens.push(new Garden());
