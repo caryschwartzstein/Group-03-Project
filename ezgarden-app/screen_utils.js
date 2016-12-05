@@ -5,6 +5,7 @@ import * as plantSeed from '/screens/plant_seed';
 import * as notifications from '/screens/notifications';
 import * as plantProfile from '/screens/plant_profile';
 import * as plantLive from '/screens/plant_live';
+import * as progress from '/screens/progress';
 
 var popups = [];
 var currentScreen = null;
@@ -49,6 +50,10 @@ export function showCongrats() {
 
 export function showNotifications() {
 	showScreen(notifications.getScreen(), "left");
+}
+
+export function showProgress() {
+    showScreen(progress.getScreen(), "right");
 }
 
 export function showPlantProfile(direction) {
