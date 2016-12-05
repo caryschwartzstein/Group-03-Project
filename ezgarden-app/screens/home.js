@@ -83,9 +83,9 @@ export var PlantButton = Container.template($ => ({
 var HomeScreen = Column.template($ => ({
     left: 0, right: 0, top: 0, bottom: 0, skin: whiteSkin,
     contents: [
-        new assets.Header({
+        new assets.LogoHeader({
             leftElement: new TrophyButton({ callFunc: screenUtils.showNotifications, callFunc: screenUtils.showProgress }),
-			string: "ez garden",
+			logo: new Picture({ top: 10, bottom: 10, left: 0, right: 0, height: 37, url: assets.images.logo }),
 			rightElement: new NotificationsButton({ style: assets.whiteText, string: "1", callFunc: screenUtils.showNotifications })
 		}),
         new Column({ name: "column", top: 0, left: 0, bottom: 0, right: 0 }),

@@ -42,6 +42,21 @@ export var Header = Container.template($ => ({
 	  ]
 }));
 
+export var LogoHeader = Container.template($ => ({
+	name: 'header',
+	left: 0, right: 0, top: 0, height: 50,
+	skin: topSkin,
+	contents: [
+	    new Line({ top: 0, left: 10, bottom: 0, right: 10,
+	        contents: [
+	            $.leftElement,
+	            $.logo,
+	            $.rightElement
+	        ]
+	    }),
+	  ]
+}));
+
 export var ImgButton = Container.template($ => ({
     active: true, top: 0, bottom: 0, width: 30,
     behavior: Behavior({
