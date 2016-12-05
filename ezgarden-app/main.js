@@ -6,5 +6,5 @@ import * as plantCamera from "screens/plant_camera";
 import * as plantProfile from "screens/plant_profile";
 import * as plantSeed from "screens/plant_seed";
 import * as plants from 'plants';
-
-screenUtils.showHome();
+ 
+screenUtils.showHome(); 

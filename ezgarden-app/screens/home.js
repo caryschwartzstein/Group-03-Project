@@ -40,6 +40,18 @@ export var NotificationsButton = Container.template($ => ({
    ]
 }));
 
+export var TrophyButton = Container.template($ => ({
+    active: true, top: 0, bottom: 0, width: 30,
+    behavior: Behavior({
+        onTouchEnded: function(content) {
+        	$.callFunc();
+        },
+    }),
+   contents: [
+        new Picture({ height: 160, left: 0, right: 0, url: assets.images.trophy})
+   ]
+}));
+
 export var Garden = Column.template($ => ({
 	name: 'garden',
 	left: 0, right: 0, top: 0, height: 150,
@@ -72,7 +84,8 @@ var HomeScreen = Column.template($ => ({
     left: 0, right: 0, top: 0, bottom: 0, skin: whiteSkin,
     contents: [
         new assets.Header({
-			string: "My Garden",
+            leftElement: new TrophyButton({ callFunc: screenUtils.showNotifications, callFunc: screenUtils.showProgress }),
+			string: "ez garden",
 			rightElement: new NotificationsButton({ style: assets.whiteText, string: "1", callFunc: screenUtils.showNotifications })
 		}),
         new Column({ name: "column", top: 0, left: 0, bottom: 0, right: 0 }),
