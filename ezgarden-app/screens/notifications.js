@@ -15,8 +15,6 @@ let whiteText = new Style({ font: "18px arial", color: "white" });
 let greenPopupText = new Style({ font: "20px arial", color: "#66cc66" });
 let popupButtonText = new Style({ font: "17px arial", color: "#4F4F4F" });
 
-var currentNotification;
-
 // TEMPLATES
 var StringTemplate = Text.template($ => ({
     left: 3, right: 3, top: 3, bottom: 0,
@@ -38,9 +36,10 @@ export var WaterButton = Button.template($ => ({
 	        	screenUtils.showPopup(new WateredPopup({
 	        		plant: plant,
 	        		closeFunc: function() {
-	        			currentNotification.visible = false;
-	        			currentNotification.container.remove(currentNotification);
-	        			screenUtils.closePopups()
+	        			let notification = button.container.container;
+	        			notification.visible = false;
+	        			notification.container.remove(notification);
+	        			screenUtils.closePopups();
 	        		}
 	        	}));
         	}
@@ -50,7 +49,7 @@ export var WaterButton = Button.template($ => ({
 
 export var NutrientButton = Button.template($ => ({
 	top: 10, left: 0, height: 40, right: 20,
-	skin: graySkin, 
+	skin: graySkin,
     contents: [
         new Label({ style: whiteText, string: "Feed Garden 1" }),
     ],
@@ -61,9 +60,10 @@ export var NutrientButton = Button.template($ => ({
 	        	screenUtils.showPopup(new FedPopup({
 	        		plant: plant,
 	        		closeFunc: function() {
-	        			currentNotification.visible = false;
-	        			currentNotification.container.remove(currentNotification);
-	        			screenUtils.closePopups()
+	        			let notification = button.container.container;
+	        			notification.visible = false;
+	        			notification.container.remove(notification);
+	        			screenUtils.closePopups();
 	        		}
 	        	}));
         	}
@@ -158,7 +158,7 @@ export var WarningNutritionPopup = Container.template($ => ({
     ]
 }));
 
-var Notification = Container.template($ => ({
+var WaterNotification = Container.template($ => ({
   name: 'notification',
   left: 0, right: 0, top: 20, height: 60,
   skin: whiteSkin,
@@ -174,7 +174,7 @@ var Notification = Container.template($ => ({
   ]
 }));
 
-var Notification2 = Container.template($ => ({
+var NutrientNotification = Container.template($ => ({
   name: 'nutrient notification',
   left: 0, right: 0, top: 20, height: 60,
   skin: whiteSkin,
@@ -211,8 +211,7 @@ export function getScreen() {
 		return screen;
 	}
 	screen = new NotificationScreen();
-	currentNotification = new Notification();
-	screen.column.add(currentNotification);
-	screen.column.add(new Notification2());
+	screen.column.add(new WaterNotification());
+	screen.column.add(new NutrientNotification());
 	return screen;
 }

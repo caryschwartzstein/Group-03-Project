@@ -84,16 +84,19 @@ export function getScreen() {
 	if (screen) {
 		return screen;
 	}
+	screen = new HomeScreen();
 	refresh();
 	return screen;
 }
 
 export function refresh() {
-	screen = new HomeScreen();
+	screen = getScreen();
+	screen.column.empty();
+	
 	for (var i = 0; i < plants.gardens.length; i++) {
 		var garden = plants.gardens[i];
 		var gardenContainer = new Garden({ string: "Garden " + (i + 1) });
-		getScreen().column.add(gardenContainer);
+		screen.column.add(gardenContainer);
 		
 		for (var j = 0; j < garden.plants.length; j++) {
 			let plant = garden.plants[j];

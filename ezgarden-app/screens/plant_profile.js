@@ -2,6 +2,7 @@ import { Button, ButtonBehavior } from '../libraries/buttons';
 import * as screenUtils from '../screen_utils';
 import * as assets from "../assets";
 import * as notifications from 'notifications';
+import * as plantLive from 'plant_live';
 
 let WARNING_TIME = 1000 * 60 * 60 * 6;
 
@@ -20,7 +21,7 @@ let grayText = new Style({ font: "16px arial", color: "#333333", horizontal: "le
 let centerGrayText = new Style({ font: "16px arial", color: "#555555" });
 
 var BlueButton = Container.template($ => ({
-  exclusiveTouch: true, active: true, right: 20, height: 26, width: 80, skin: blueButtonSkin,
+  exclusiveTouch: true, active: true, right: 20, height: 26, width: 80, skin: blueButtonSkin, name: "blueButton",
   contents:[
     Label($, {
       hidden: false, skin: $.skin, string: $.string, top: 0, bottom: 0, left: 0, right: 0, style: centerGrayText
@@ -33,50 +34,64 @@ var BlueButton = Container.template($ => ({
   })
 }));
 
+export var FrontBar = Container.template($ => ({
+	name: "frontBar", top: 0, bottom: 0, left: 0, width: $.width, skin: frontBarSkin
+}));
+
 export var AmountBar = Container.template($ => ({
 	width: 180, height: 16, left: 0,
+	name: "amountBar",
 	contents: [
 	    new Container({ name: "backBar", top: 0, bottom: 0, left: 0, right: 0, skin: backBarSkin }),
-	    new Container({ name: "frontBar", top: 0, bottom: 0, left: 0, width: 110, skin: frontBarSkin }),
-	]
+	    new FrontBar({}),
+	],
 }));
 
 var PlantInformation = Column.template($ => ({
-	top: -30, left: 20, right: 0, height: 160, skin: whiteSkin, active: true,
+	top: 20, left: 20, right: 0, height: 160, skin: whiteSkin, active: true, name: "plantInfo",
     contents: [
-        new Column({ top: 0, left: 0, right: 0,
+        new Column({ name: "column", top: 0, left: 0, right: 0,
         	contents: [
-                new Label({ left: 0, right: 0, top: 0, style: greenText,
+                new Label({ name: "label1", left: 0, right: 0, top: 0, style: greenText,
 	            	string: "Plant Information"}),
-	            new Label({ left: 4, right: 0, top: 5, style: grayText, 
+	            new Label({ name: "label2", left: 4, right: 0, top: 5, style: grayText, 
 	            	string: "Watered " + plant.getWateredTimeStr() + " ago" }),
-	            new Label({ left: 4, right: 0, top: 5, style: grayText, 
+	            new Label({ name: "label3", left: 4, right: 0, top: 5, style: grayText, 
 	            	string: "Planted " + plant.getPlantedTimeStr() + " ago" }),
 	        ]
         }),
-        new Container({ left: 0, right: 0, top: 10,
-        	contents: [new AmountBar({}), new BlueButton({ 
+        new Container({ name: "waterContainer", left: 0, right: 0, top: 10,
+        	contents: [
+        	    new AmountBar({}), 
+        	    new BlueButton({
         		string: "water",
         		callFunc: function() {
-        			if (plant == null) {
+        			if (!plant) {
         				return;
         			}
-        			
-        			plant.water();
+        			waterPlant();
         			screenUtils.showPopup(new notifications.WateredPopup({ plant: plant, closeFunc: screenUtils.closePopups }));
         		}})
         	]
         }),
-        new Container({ left: 0, right: 0, top: 10,
-        	contents: [new AmountBar({}), new BlueButton({ 
+        new Container({ name: "nutritionContainer", left: 0, right: 0, top: 10,
+        	contents: [
+        	    new AmountBar({}), 
+        	    new BlueButton({ 
         		string: "nutrition",
         		callFunc: function() {
+        			if (!plant) {
+        				return;
+        			}
+        			feedPlant();
         			screenUtils.showPopup(new notifications.NutritionPopup({ plant: plant, closeFunc: screenUtils.closePopups }));
         		}})
         	]
         }),
-        new Container({ left: 0, right: 0, top: 10,
-        	contents: [new AmountBar({}),new BlueButton({ 
+        new Container({ name: "sunlightContainer", left: 0, right: 0, top: 10,
+        	contents: [
+        	    new AmountBar({}),
+        	    new BlueButton({ 
         		string: "sunlight",
         		callFunc: function() {
         			//screenUtils.showPopup(new notifications.WateredPopup({ closeFunc: screenUtils.closePopups }));
@@ -116,23 +131,25 @@ var PlantProfileScreen = Column.template($ => ({
     top: 0, bottom: 0, left: 0, right: 0, 
     skin: whiteSkin,
     contents: [
-       new Line({ left: 10, right: 10, top: 0, height: 50,
+       new Line({ name: "header", left: 10, right: 10, top: 0, height: 50,
          contents:[
             new assets.ImgButton({ url: assets.images.home2, callFunc: screenUtils.showHome }),
-            new Label({ width: 200, left: 0, right: 0, top: 0, bottom: 0, style: titleText, string: plant.plantType.name }),
+            new Label({ name: "label", width: 200, left: 0, right: 0, top: 0, bottom: 0, style: titleText, string: plant.plantType.name }),
          ]
       }),
       new Line({ left: 20, right: 20, top: 0, height: 2, skin: headerLineSkin }),
-      new Line({ name: 'middle', height: 170, top: 0,
+      new Container({ name: 'middle', height: 120, top: 0, active: true,
           contents: [
-            new Picture({ top: 10, height: 100, width: 100, url: plant.plantType.image, active: true,
-            	behavior: Behavior({
-                    onTouchEnded: function(content, id, x, y, ticks) {
-                    	screenUtils.showPlantLive();
-                    }
-                  })
-            }),
-          ]
+            new Picture({ name: "picture", top: 10, height: 100, url: plant.plantType.image}),
+            new Picture({ bottom: 0, left: 50, right: 0, height: 20, width: 20, url: assets.images.picture }),
+          ],
+          behavior: Behavior({
+        	  onTouchEnded: function(content, id, x, y, ticks) {
+        		  plantLive.plant = plant;
+        		  plantLive.refresh();
+        		  screenUtils.showPlantLive();
+        	  }
+          })
       }),
       new PlantInformation(),
       new CareTips(),
@@ -148,9 +165,58 @@ export function getScreen() {
 		return null;
 	}
 	screen = new PlantProfileScreen();
+	refresh();
 	return screen;
 }
 
 export function refresh() {
-	screen = new PlantProfileScreen(); 
+	if (!screen || !plant) {
+		return;
+	}
+	
+	if (screen.middle.picture.url != plant.plantType.image) {
+		screen.middle.picture.url = plant.plantType.image;
+	}
+	screen.header.label.string = plant.plantType.name;
+	screen.plantInfo.column.label2.string = "Watered " + plant.getWateredTimeStr() + " ago";
+	screen.plantInfo.column.label3.string = "Planted " + plant.getPlantedTimeStr() + " ago";
+	
+	var waterAmountBar = screen.plantInfo.waterContainer.amountBar;
+	var waterFrontBar = waterAmountBar.frontBar;
+	waterAmountBar.remove(waterFrontBar);
+	waterAmountBar.add(new FrontBar({ width: waterAmountBar.width * plant.waterLevels }));
+	
+	var nutritionAmountBar = screen.plantInfo.nutritionContainer.amountBar;
+	var nutritionFrontBar = nutritionAmountBar.frontBar;
+	nutritionAmountBar.remove(nutritionFrontBar);
+	nutritionAmountBar.add(new FrontBar({ width: nutritionAmountBar.width * plant.nutrientLevels }));
+	
+	var sunlightAmountBar = screen.plantInfo.sunlightContainer.amountBar;
+	var sunlightFrontBar = sunlightAmountBar.frontBar;
+	sunlightAmountBar.remove(sunlightFrontBar);
+	sunlightAmountBar.add(new FrontBar({ width: sunlightAmountBar.width * plant.sunlightLevels }));
+}
+
+export function waterPlant() {
+	if (!plant) {
+		return;
+	}
+	plant.water();
+	refresh();
+}
+
+export function feedPlant() {
+	if (!plant) {
+		return;
+	}
+	plant.nutrients();
+	refresh();
+}
+
+export function lightPlant() {
+	if (!plant) {
+		return;
+	}
+	plant.light();
+	refresh();
 }
