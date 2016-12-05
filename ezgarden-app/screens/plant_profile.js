@@ -14,8 +14,8 @@ let backBarSkin = new Skin({ fill: '#C4C4C4' });
 let frontBarSkin = new Skin({ fill: '#56CCF2' });
 
 let blackText = new Style({ font: "16px arial", color: "black" });
-export let titleText = new Style({ font: "bold 30px ribeye marrow", color: "black" });
-let greenText = new Style({ font: "bold 24px segoe script", color: '#66cc66', horizontal: "left" });
+export let titleText = new Style({ font: "30px futura", color: "black" }); // titleText
+let greenText = new Style({ font: "24px futura", color: '#66cc66', horizontal: "left" });
 let smallBlackText = new Style({ font: "14px arial", color: "black", horizontal: "left" });
 let grayText = new Style({ font: "16px arial", color: "#333333", horizontal: "left" });
 let centerGrayText = new Style({ font: "16px arial", color: "#555555" });

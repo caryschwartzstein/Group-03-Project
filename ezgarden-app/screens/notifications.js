@@ -11,7 +11,7 @@ let popupButtonSkin = new Skin({ fill: '#66cc66' });
 
 let blackText = new Style({ font: "18px arial", color: "black" });
 let grayText = new Style({ font: "18px arial", color: "#757575" });
-let whiteText = new Style({ font: "18px arial", color: "white" });
+let whiteText = new Style({ font: "18px futura", color: "white" });
 let greenPopupText = new Style({ font: "20px arial", color: "#66cc66" });
 let popupButtonText = new Style({ font: "17px arial", color: "#4F4F4F" });
 

@@ -5,7 +5,11 @@ import * as home from 'home';
 
 let whiteSkin = new Skin({ fill: 'white' });
 export let titleText = new Style({ font: "bold 30px ribeye marrow", color: "black" });
-let blackText = new Style({ font: "18px arial", color: "black" });
+let blackText = new Style({ font: "bold 26px noteworthy", color: "black" });
+
+// noteworthy 
+
+// brush script MT
 
 export function ProgressState(number, image, message, unlocked) {
     this.number = number;
@@ -35,8 +39,8 @@ var ProgressScreen = Column.template($ => ({
 			string: "Progress",
 			leftElement: new assets.ImgButton({ url: assets.images.home2, callFunc: screenUtils.showHome }),
 		}),
-	    new Picture({ left: 0, right: 0, top: 50, bottom: 30, url: state.image }),
-	    new Line({ left: 10, right: 10, top: 0, height: 70,
+	    new Picture({ left: 0, right: 0, top: 50, bottom: 100, url: state.image }),
+	    new Line({ left: 10, right: 10, top: -80, height: 100,
          contents:[
             new Text({ width: 200, left: 20, right: 20, top: 0, bottom: 50, 
               style: blackText, string: state.message + " " + state.unlocked }),

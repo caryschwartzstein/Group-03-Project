@@ -21,10 +21,13 @@ export var topSkin = new Skin({ fill: '#6FCF97' })
 
 //Texts
 export var greenText = new Style({ font: "20px", color: "#66cc66" });
-export var blackText3 = new Style({ font: "18px american typewriter", color: "#555555" });
+export var blackText3 = new Style({ font: "18px arial", color: "#555555" });
 export var blackText = new Style({ font: "bold 32px segoe script", color: "black" });
 export var whiteText = new Style( { font: "20px", color: "white"});
-export var titleText = new Style({ font: "30px segoe script", color: "white" });
+export var titleText = new Style({ font: "30px futura", color: "white" });
+
+
+// gill sans 
 
 // Templates
 export var Header = Container.template($ => ({
