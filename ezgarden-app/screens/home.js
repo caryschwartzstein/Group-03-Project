@@ -86,7 +86,7 @@ var HomeScreen = Column.template($ => ({
         new assets.LogoHeader({
             leftElement: new TrophyButton({ callFunc: screenUtils.showNotifications, callFunc: screenUtils.showProgress }),
 			logo: new Picture({ top: 10, bottom: 10, left: 0, right: 0, height: 37, url: assets.images.logo }),
-			rightElement: new NotificationsButton({ style: assets.whiteText, string: "1", callFunc: screenUtils.showNotifications })
+			rightElement: new NotificationsButton({ style: assets.whiteText, string: "2", callFunc: screenUtils.showNotifications })
 		}),
         new Column({ name: "column", top: 0, left: 0, bottom: 0, right: 0 }),
     ]
@@ -97,19 +97,16 @@ export function getScreen() {
 	if (screen) {
 		return screen;
 	}
-	screen = new HomeScreen();
 	refresh();
 	return screen;
 }
 
 export function refresh() {
-	screen = getScreen();
-	screen.column.empty();
-	
+	screen = new HomeScreen();
 	for (var i = 0; i < plants.gardens.length; i++) {
 		var garden = plants.gardens[i];
 		var gardenContainer = new Garden({ string: "Garden " + (i + 1) });
-		screen.column.add(gardenContainer);
+		getScreen().column.add(gardenContainer);
 		
 		for (var j = 0; j < garden.plants.length; j++) {
 			let plant = garden.plants[j];

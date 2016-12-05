@@ -25,7 +25,7 @@ let state4 = new ProgressState(4, assets.images.PlantPot4, "You have successfull
 let state5 = new ProgressState(5, assets.images.PlantPot5, "Your plants are looking great! You have been taking care of them without notifications.", "tomato");
 let state6 = new ProgressState(6, assets.images.PlantPot6, "Wow you have multiple gardens growing healthily - you are on your way to becoming a successful gardener!", "chrysanthemum");
 
-export var state = state0;
+export var state = state4;
 
 var ProgressScreen = Column.template($ => ({
 	top: 0, bottom: 0, left: 0, right: 0, 
