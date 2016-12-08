@@ -2,6 +2,8 @@ import { Button, ButtonBehavior } from '../libraries/buttons';
 import * as screenUtils from '../screen_utils';
 import * as assets from "../assets";
 import * as home from 'home';
+import * as plants from '../plants';
+
 
 let whiteSkin = new Skin({ fill: 'white' });
 export let titleText = new Style({ font: "bold 30px ribeye marrow", color: "black" });
@@ -27,16 +29,25 @@ let state6 = new ProgressState(6, assets.images.PlantPot6, "Wow you have multipl
 
 export var state = state0;
 
+function checkStateChange() {
+   if (plants.gardens[0].plants.length == 3) {
+       state = state3;
+   }
+   return new Picture({ active: true, left: 0, right: 0, top: 50, bottom: 30, url: state.image })
+
+}
+
 var ProgressScreen = Column.template($ => ({
-	top: 0, bottom: 0, left: 0, right: 0, 
+	top: 0, bottom: 0, left: 0, right: 0, active: true,
     skin: whiteSkin,
     contents: [
         new assets.Header({
 			string: "Progress",
 			leftElement: new assets.ImgButton({ url: assets.images.home2, callFunc: screenUtils.showHome }),
 		}),
-	    new Picture({ left: 0, right: 0, top: 50, bottom: 30, url: state.image }),
-	    new Line({ left: 10, right: 10, top: 0, height: 70,
+	    new Picture({ left: 0, right: 0, top: 30, bottom: 30, url: state.image }),
+	    //new checkStateChange(),
+	    new Line({ left: 10, right: 10, top: 0, height: 130,
          contents:[
             new Text({ width: 200, left: 20, right: 20, top: 0, bottom: 50, 
               style: blackText, string: state.message + " " + state.unlocked }),
@@ -47,9 +58,21 @@ var ProgressScreen = Column.template($ => ({
 
 var screen = null;
 export function getScreen() {
+    refresh()
 	if (screen) {
 		return screen;
 	}
 	screen = new ProgressScreen();
 	return screen;
+}
+
+export function refresh() {
+    //checkStateChange();
+    if (plants.gardens[0].plants.length == 3) {
+       state = state3;
+    }
+    if (plants.gardens[2].plants.length == 3) {
+       state = state5;
+    }
+	screen = new ProgressScreen(); 
 }
