@@ -49,8 +49,7 @@ var ProgressScreen = Column.template($ => ({
 	    //new checkStateChange(),
 	    new Line({ left: 10, right: 10, top: 0, height: 130,
          contents:[
-            new Text({ width: 200, left: 20, right: 20, top: 0, bottom: 50, 
-              style: blackText, string: state.message + " " + state.unlocked }),
+            new Text({ width: 200, left: 20, right: 20, top: 0, bottom: 50, style: blackText, string: state.message + " " + state.unlocked })
          ]
       }) 
     ]

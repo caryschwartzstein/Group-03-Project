@@ -1,5 +1,6 @@
 import * as assets from '../assets';
 import * as screenUtils from '../screen_utils';
+import * as main from '../main';
 
 let whiteSkin = new Skin({ fill: 'white' });
 let blueSkin = new Skin({ fill: '#B8E5F4' });
@@ -71,9 +72,11 @@ export function waterPlant() {
 		return;
 	}
 	plant.water();
+	main.updatePlant(plant);
+	
 	screenUtils.closePopups();
 	let wateredPopup = new WateredPopup({ plant: plant, closeFunc: screenUtils.closePopups });
-	refreshScreen();
+	refresh();
 	screenUtils.showPopup(wateredPopup);
 }
 
@@ -82,15 +85,15 @@ export var screen = null;
 
 export function getScreen() {
 	if (screen) {
-		refreshScreen();
+		refresh();
 		return screen;
 	}
 	screen = new PlantProfileScreen();
-	refreshScreen();
+	refresh();
 	return screen;
 }
 
-export function refreshScreen() {
+export function refresh() {
 	if (screen == null) {
 		return;
 	}

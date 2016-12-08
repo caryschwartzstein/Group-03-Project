@@ -1,6 +1,7 @@
 import { Button, ButtonBehavior } from '../libraries/buttons';
 import * as assets from '../assets';
 import * as screenUtils from '../screen_utils';
+import * as plants from '../plants';
 import * as plantProfile from 'plant_profile';
 
 let whiteSkin = new Skin({ fill: 'white' });
@@ -19,7 +20,7 @@ export var PlantButton = Column.template($ => ({
     		this.plant = $.plant;
     	},
         onTouchEnded: function(content) {
-        	$.callFunc();
+        	$.callFunc(content);
         },
     }),
    contents: [
@@ -45,21 +46,48 @@ var HomeScreen = Column.template($ => ({
 
 export function getScreen() {
 	if (screen) {
-		refreshScreen();
 		return screen;
 	}
+	
 	screen = new HomeScreen();
-	refreshScreen();
+	gardenContainer = new Garden({});
+	screen.column.add(gardenContainer);
+	refresh();
 	return screen;
 }
 
-export function refreshScreen() {
+export function refresh() {
 	if (!screen) {
 		return;
-	} 
+	}
 	
+	var garden = plants.gardens[0];
+	for (var i = plantButtons.length; i < garden.plants.length; i++) {
+		let plant = garden.plants[i];
+		let plantButton = new PlantButton({ 
+			height: 50, width: 50,
+			plant: plant,
+			string: plant.plantType.name,
+	        string2: "Water in 5m",
+	        url: plant.plantType.image,
+	        callFunc: function(container) {
+	        	plantProfile.plant = container.behavior.plant;
+	        	plantProfile.screen = null;
+	        	screenUtils.showPlantProfile();
+	        }
+	    });
+		plantButtons.push(plantButton);
+		gardenContainer.add(plantButton);
+	}
+	
+	for (var i = plantButtons.length - 1; i > garden.plants.length - 1; i--) {
+		gardenContainer.remove(plantButtons[i]);
+		plantButtons.splice(i, 1);
+	}
+
 	for (var i = 0; i < plantButtons.length; i++) {
 		let plantButton = plantButtons[i];
+		plantButton.behavior.plant = garden.plants[i];
 		let plant = plantButton.behavior.plant;
 		
 		if (plantButton.plantPicture.url != plant.plantType.image) {
@@ -71,30 +99,4 @@ export function refreshScreen() {
 
 		plantButton.wateringLabel.string = "Water in " + plant.getWateringTimeStrShort();
 	}
-}
-
-export function createGarden(garden) {
-	gardenContainer = new Garden({});
-	getScreen().column.add(gardenContainer);
-	
-	for (var i = 0; i < garden.plants.length; i++) {
-		let plant = garden.plants[i];
-		let plantButton = new PlantButton({
-			plant: plant,
-	        url: plant.plantType.image,
-	        callFunc: function() {
-	        	plantProfile.plant = plant;
-	        	plantProfile.screen = null;
-	        	screenUtils.showPlantProfile();
-	        },
-	        height: 50,
-	        width: 50,
-	        string: plant.plantType.name,
-	        string2: "Water in 5m"
-	    });
-		plantButtons.push(plantButton);
-		gardenContainer.add(plantButton);
-	}
-	
-	refreshScreen();
 }

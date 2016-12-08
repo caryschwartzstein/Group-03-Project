@@ -86,7 +86,7 @@ var HomeScreen = Column.template($ => ({
         new assets.LogoHeader({
             leftElement: new TrophyButton({ callFunc: screenUtils.showNotifications, callFunc: screenUtils.showProgress }),
 			logo: new Picture({ top: 10, bottom: 10, left: 0, right: 0, height: 37, url: assets.images.logo }),
-			rightElement: new NotificationsButton({ style: assets.whiteText, string: "1", callFunc: screenUtils.showNotifications })
+			rightElement: new NotificationsButton({ style: assets.whiteText, string: "2", callFunc: screenUtils.showNotifications })
 		}),
         new Column({ name: "column", top: 0, left: 0, bottom: 0, right: 0 }),
     ]

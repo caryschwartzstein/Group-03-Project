@@ -9,8 +9,13 @@ export function discoverDevice(deviceId) {
 	    onInvoke: function(handler, message){
 	    	trace("Discovered: " + deviceId + "\n");
 	    	remoteUrl = JSON.parse(message.requestText).url;
+	    	sendMessage("Discovered");
 	    }
 	}));
+}
+
+export function forgetDevice(deviceId) {
+	application.forget(deviceId);
 }
 
 export function sendMessage(id, args) {
@@ -25,7 +30,9 @@ function sendMessageHelper(id, args) {
 	if (!args) {
 		args = {};
 	}
-	new Message(id + "?" + serializeQuery(args)).invoke();
+	let msg = new Message(id);
+	msg.requestText = JSON.stringify(args);
+	msg.invoke(Message.TEXT);
 }
 
 export function onInvoke(id, func) {
@@ -38,7 +45,7 @@ export function onInvoke(id, func) {
 	}
 	behavior = handlerMap[id];
 	behavior.onInvoke = function(handler, message) {
-		var args = parseQuery(message.query);
+		var args = JSON.parse(message.requestText);
     	func(handler, args);
 	}
 }
