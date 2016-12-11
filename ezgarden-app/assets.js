@@ -12,6 +12,7 @@ while (info = iterator.getNext()) {
     	images[imageName] = fullPath;
     }
 }
+trace(images + "\n");
 
 // Skins
 export var whiteSkin = new Skin ({fill: 'white'});
