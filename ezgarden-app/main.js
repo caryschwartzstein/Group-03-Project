@@ -26,7 +26,6 @@ comm.onInvoke("GetGardens", function(handler, args) {
 });
 
 comm.onInvoke("UpdatePlant", function(handler, args) {
-	trace("Update Plant: " + args + "\n");
 	let plant = plants.clonePlant(args);
 	for (var i = 0; i < plants.gardens.length; i++) {
 		for (var j = 0; j < plants.gardens[i].plants.length; j++) {

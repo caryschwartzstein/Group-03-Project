@@ -115,7 +115,6 @@ comm.onInvoke("SunlightLevelsChanged", function(handler, args) {
 });
 
 comm.onInvoke("UpdatePlant", function(handler, args) {
-	trace("Update Plant: " + args + "\n");
 	let plant = plants.clonePlant(args);
 	for (var i = 0; i < plants.gardens.length; i++) {
 		for (var j = 0; j < plants.gardens[i].plants.length; j++) {
@@ -138,6 +137,11 @@ comm.onInvoke("PutGardens", function(handler, args) {
 			plants.gardens[i].plants[j] = plants.clonePlant(plants.gardens[i].plants[j]);
 		}
 	}
+	refreshAll();
+});
+
+comm.onInvoke("AddPlant", function(handler, args) {
+	plants.gardens[0].plants.push(plants.clonePlant(args));
 	refreshAll();
 });
 
